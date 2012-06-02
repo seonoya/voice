@@ -1,12 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<TabHost xmlns:android="http://schemas.android.com/apk/res/android"    
+    android:id="@android:id/tabhost"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" >
-
-    <TextView
+    >
+    <LinearLayout
+        android:orientation="vertical"    
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/hello" />
-
-</LinearLayout>
+        android:layout_height="fill_parent"
+        >    
+        <TabWidget
+            android:id="@android:id/tabs"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            />
+	   <FrameLayout
+            android:id="@android:id/tabcontent"    
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            >        
+            <TextView  
+                android:id="@+id/tab1" 
+                android:layout_width="fill_parent" 
+                android:layout_height="wrap_content" 
+                android:text="tab1"
+                />
+            <TextView  
+                android:id="@+id/tab2" 
+                android:layout_width="fill_parent" 
+                android:layout_height="wrap_content" 
+                android:text="tab2"
+                />
+            <TextView  
+                android:id="@+id/tab3" 
+                android:layout_width="fill_parent" 
+                android:layout_height="wrap_content" 
+                android:text="tab3"
+                />                                
+            <TextView  
+                android:id="@+id/tab4" 
+                android:layout_width="fill_parent" 
+                android:layout_height="wrap_content" 
+                android:text="tab4"
+                />                                
+            <TextView  
+                android:id="@+id/tab5" 
+                android:layout_width="fill_parent" 
+                android:layout_height="wrap_content" 
+                android:text="tab5"
+                />                                
+        </FrameLayout>
+    </LinearLayout>
+</TabHost>
