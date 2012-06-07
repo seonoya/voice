@@ -21,31 +21,33 @@ public class VoiceActivity extends TabActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
+        Drawable img = null;
         TabHost tabHost = getTabHost();
-        Drawable img = getResources().getDrawable(R.drawable.img_tab_icon01);
+        
+        img = getResources().getDrawable(R.drawable.img_tab_icon01);
         TabSpec tabSpec1 = tabHost.newTabSpec("Tab1").setIndicator("보이스",img);        
-        tabSpec1.setContent(new Intent(this,VoicePlayerMainView.class));
+        tabSpec1.setContent(new Intent(this, VoicePlayerMainView.class));
         tabHost.addTab(tabSpec1);
         
         
         img = getResources().getDrawable(R.drawable.img_tab_icon02);
         TabSpec tabSpec2 = tabHost.newTabSpec("Tab2").setIndicator("리스트",img);
-        tabSpec1.setContent(new Intent(this,CategoryListView.class));
+        tabSpec2.setContent(new Intent(this, CategoryListView.class));
         tabHost.addTab(tabSpec2);
         
         img = getResources().getDrawable(R.drawable.img_tab_icon03);
         TabSpec tabSpec3 = tabHost.newTabSpec("Tab3").setIndicator("즐겨찾기", img);
-        tabSpec1.setContent(new Intent(this,Tab3View.class));
+        tabSpec3.setContent(new Intent(this, Tab3View.class));
         tabHost.addTab(tabSpec3);
 
         img = getResources().getDrawable(R.drawable.img_tab_icon04);
         TabSpec tabSpec4 = tabHost.newTabSpec("Tab4").setIndicator("메모장", img);
-        tabSpec1.setContent(new Intent(this,Tab4View.class));
+        tabSpec4.setContent(new Intent(this, Tab4View.class));
         tabHost.addTab(tabSpec4);
         
         img = getResources().getDrawable(R.drawable.img_tab_icon05);
         TabSpec tabSpec5 = tabHost.newTabSpec("Tab5").setIndicator("설정", img);
-        tabSpec1.setContent(new Intent(this,Tab5View.class));
+        tabSpec5.setContent(new Intent(this, Tab5View.class));
         tabHost.addTab(tabSpec5);
         
         tabHost.setCurrentTab(0);

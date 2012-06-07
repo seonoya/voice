@@ -11,7 +11,7 @@ public class CategoryListView extends Activity {
 		super.onCreate(savedInstanceState);
 
 		TextView textView = new TextView(this);
-		textView.setText("ц╧ег");
+		textView.setText("ег2");
 		setContentView(textView);
 	}
 }

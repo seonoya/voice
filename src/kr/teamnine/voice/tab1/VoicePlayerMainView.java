@@ -11,7 +11,7 @@ public class VoicePlayerMainView extends Activity {
 		super.onCreate(savedInstanceState);
 
 		TextView textView = new TextView(this);
-		textView.setText("ц╧ег");
+		textView.setText("ег1");
 		setContentView(textView);
 	}
 }

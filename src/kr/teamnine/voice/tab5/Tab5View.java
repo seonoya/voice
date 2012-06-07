@@ -11,7 +11,7 @@ public class Tab5View extends Activity {
 		super.onCreate(savedInstanceState);
 
 		TextView textView = new TextView(this);
-		textView.setText("ц╧ег");
+		textView.setText("ег5");
 		setContentView(textView);
 	}
 }
