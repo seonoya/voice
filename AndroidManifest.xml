@@ -27,13 +27,13 @@
             android:name=".tab2.CategoryListView"
             android:label="Tab2" />
         <activity
-            android:name=".tab3.Tab3View"
+            android:name=".tab3.FavoritesListView"
             android:label="Tab3" />
         <activity
-            android:name=".tab4.Tab4View"
+            android:name=".tab4.NotePadListView"
             android:label="Tab4" />
         <activity
-            android:name=".tab5.Tab5View"
+            android:name=".tab5.AppSettingView"
             android:label="Tab5" />
     </application>
 

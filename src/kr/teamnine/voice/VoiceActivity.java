@@ -3,9 +3,9 @@ package kr.teamnine.voice;
 import kr.teamnine.voice.R;
 import kr.teamnine.voice.tab1.VoicePlayerMainView;
 import kr.teamnine.voice.tab2.CategoryListView;
-import kr.teamnine.voice.tab3.Tab3View;
-import kr.teamnine.voice.tab4.Tab4View;
-import kr.teamnine.voice.tab5.Tab5View;
+import kr.teamnine.voice.tab3.FavoritesListView;
+import kr.teamnine.voice.tab4.NotePadListView;
+import kr.teamnine.voice.tab5.AppSettingView;
 
 import android.app.TabActivity;
 import android.content.Intent;
@@ -37,17 +37,17 @@ public class VoiceActivity extends TabActivity {
         
         img = getResources().getDrawable(R.drawable.img_tab_icon03);
         TabSpec tabSpec3 = tabHost.newTabSpec("Tab3").setIndicator("즐겨찾기", img);
-        tabSpec3.setContent(new Intent(this, Tab3View.class));
+        tabSpec3.setContent(new Intent(this, FavoritesListView.class));
         tabHost.addTab(tabSpec3);
 
         img = getResources().getDrawable(R.drawable.img_tab_icon04);
         TabSpec tabSpec4 = tabHost.newTabSpec("Tab4").setIndicator("메모장", img);
-        tabSpec4.setContent(new Intent(this, Tab4View.class));
+        tabSpec4.setContent(new Intent(this, NotePadListView.class));
         tabHost.addTab(tabSpec4);
         
         img = getResources().getDrawable(R.drawable.img_tab_icon05);
         TabSpec tabSpec5 = tabHost.newTabSpec("Tab5").setIndicator("설정", img);
-        tabSpec5.setContent(new Intent(this, Tab5View.class));
+        tabSpec5.setContent(new Intent(this, AppSettingView.class));
         tabHost.addTab(tabSpec5);
         
         tabHost.setCurrentTab(0);
