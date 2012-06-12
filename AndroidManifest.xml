@@ -22,19 +22,24 @@
         </activity>
         <activity
             android:name=".tab1.VoicePlayerMainView"
-            android:label="Tab1" />
+            android:label="voicePlayer"
+            android:theme="@android:style/Theme.NoTitleBar" />
         <activity
             android:name=".tab2.CategoryListView"
-            android:label="Tab2" />
+            android:label="categoryList"
+            android:theme="@android:style/Theme.NoTitleBar" />
         <activity
             android:name=".tab3.FavoritesListView"
-            android:label="Tab3" />
+            android:label="favoritesList"
+            android:theme="@android:style/Theme.NoTitleBar" />
         <activity
             android:name=".tab4.NotePadListView"
-            android:label="Tab4" />
+            android:label="notePadList"
+            android:theme="@android:style/Theme.NoTitleBar" />
         <activity
             android:name=".tab5.AppSettingView"
-            android:label="Tab5" />
+            android:label="appSetting"
+            android:theme="@android:style/Theme.NoTitleBar" />
     </application>
 
 </manifest>

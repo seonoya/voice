@@ -1,18 +1,15 @@
 package kr.teamnine.voice;
 
-import kr.teamnine.voice.R;
 import kr.teamnine.voice.tab1.VoicePlayerMainView;
 import kr.teamnine.voice.tab2.CategoryListView;
 import kr.teamnine.voice.tab3.FavoritesListView;
 import kr.teamnine.voice.tab4.NotePadListView;
 import kr.teamnine.voice.tab5.AppSettingView;
-
 import android.app.TabActivity;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.widget.TabHost;
-import android.widget.TabHost.TabSpec;
 
 
 public class VoiceActivity extends TabActivity {
@@ -21,36 +18,50 @@ public class VoiceActivity extends TabActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-        Drawable img = null;
-        TabHost tabHost = getTabHost();
-        
-        img = getResources().getDrawable(R.drawable.img_tab_icon01);
-        TabSpec tabSpec1 = tabHost.newTabSpec("Tab1").setIndicator("보이스",img);        
-        tabSpec1.setContent(new Intent(this, VoicePlayerMainView.class));
-        tabHost.addTab(tabSpec1);
-        
-        
-        img = getResources().getDrawable(R.drawable.img_tab_icon02);
-        TabSpec tabSpec2 = tabHost.newTabSpec("Tab2").setIndicator("리스트",img);
-        tabSpec2.setContent(new Intent(this, CategoryListView.class));
-        tabHost.addTab(tabSpec2);
-        
-        img = getResources().getDrawable(R.drawable.img_tab_icon03);
-        TabSpec tabSpec3 = tabHost.newTabSpec("Tab3").setIndicator("즐겨찾기", img);
-        tabSpec3.setContent(new Intent(this, FavoritesListView.class));
-        tabHost.addTab(tabSpec3);
+        Resources res = getResources(); // Resource object to get Drawables
+        TabHost tabHost = getTabHost();  // The activity TabHost
+        TabHost.TabSpec spec;  // Resusable TabSpec for each tab
+        Intent intent;  // Reusable Intent for each tab
 
-        img = getResources().getDrawable(R.drawable.img_tab_icon04);
-        TabSpec tabSpec4 = tabHost.newTabSpec("Tab4").setIndicator("메모장", img);
-        tabSpec4.setContent(new Intent(this, NotePadListView.class));
-        tabHost.addTab(tabSpec4);
+        // 탭1 - 보이스플레이어
+        intent = new Intent().setClass(this, VoicePlayerMainView.class);
+        spec = tabHost.newTabSpec("voicePlayer").setIndicator("보이스",
+                          res.getDrawable(R.drawable.img_tab_icon1))
+                      .setContent(intent);
+        tabHost.addTab(spec);
         
-        img = getResources().getDrawable(R.drawable.img_tab_icon05);
-        TabSpec tabSpec5 = tabHost.newTabSpec("Tab5").setIndicator("설정", img);
-        tabSpec5.setContent(new Intent(this, AppSettingView.class));
-        tabHost.addTab(tabSpec5);
-        
+        // 탭2 - 카테고리 리스트
+        intent = new Intent().setClass(this, CategoryListView.class);
+        spec = tabHost.newTabSpec("categoryList").setIndicator("리스트",
+                          res.getDrawable(R.drawable.img_tab_icon2))
+                      .setContent(intent);
+        tabHost.addTab(spec);
+
+        // 탭3 - 즐겨찾기 리스트
+        intent = new Intent().setClass(this, FavoritesListView.class);
+        spec = tabHost.newTabSpec("favoritesList").setIndicator("즐겨찾기",
+                          res.getDrawable(R.drawable.img_tab_icon3))
+                      .setContent(intent);
+        tabHost.addTab(spec);
+
+
+        // 탭4 - 메모장
+        intent = new Intent().setClass(this, NotePadListView.class);
+        spec = tabHost.newTabSpec("notePadList").setIndicator("메모장",
+                          res.getDrawable(R.drawable.img_tab_icon4))
+                      .setContent(intent);
+        tabHost.addTab(spec);
+
+
+        // 탭5 - 설정
+        intent = new Intent().setClass(this, AppSettingView.class);
+        spec = tabHost.newTabSpec("appSetting").setIndicator("설정",
+                          res.getDrawable(R.drawable.img_tab_icon5))
+                      .setContent(intent);
+        tabHost.addTab(spec);
+
         tabHost.setCurrentTab(0);
+
         
     }
 }
