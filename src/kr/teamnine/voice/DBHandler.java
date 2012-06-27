@@ -42,11 +42,10 @@ public class DBHandler {
         return cursor;
     }
 
+    // 카테고리 리스트
     public Cursor selectAll() throws SQLException {
-        Cursor cursor = db.query(true, "cars", 
-                                new String[] {"_id", "car_name"},
-                                null, 
-                                null,null, null, null, null);
+    	System.out.println(db.getPageSize());
+        Cursor cursor = db.rawQuery("SELECT _id ,cateCode, cateName from tCategory ",null);
         
         if (cursor != null) { cursor.moveToFirst(); }
         

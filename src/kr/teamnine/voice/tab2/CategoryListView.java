@@ -1,35 +1,43 @@
 package kr.teamnine.voice.tab2;
 
-import android.app.Activity;
+
+import kr.teamnine.voice.DBHandler;
+import android.app.ListActivity;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 import kr.teamnine.voice.R;
 
-public class CategoryListView extends Activity implements AdapterView.OnItemClickListener {
+public class CategoryListView extends ListActivity {
 	/** Called when the activity is first created. */
-    private String[] cars = {"SM3", "SM5", "SM7", "SONATA", "AVANTE", "SOUL", "K5", "K7"};
+    private SimpleCursorAdapter cursorAdapter;
+    
+    
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
+    	
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.tab2);
-
+        DBHandler dbhandler = DBHandler.open(this);
         
-        ListView list = (ListView) findViewById(R.id.list);
+        Cursor cursor = dbhandler.selectAll();
+        startManagingCursor(cursor);
         
-        list.setAdapter(new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, cars));
-
-        list.setOnItemClickListener(this);        
+        String[] FROM = new String[]{"cateCode","cateName"};
+        int[] TO = new int[]{R.id.code, R.id.list};
+        
+        cursorAdapter = new SimpleCursorAdapter(this, R.layout.tab2row, cursor, FROM, TO );
+        setListAdapter(cursorAdapter);        
+        
+        dbhandler.close();
     }
 
-    public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+    public void onListItemClick(ListView parent, View v, int position, long id) {
 
-    
+    	System.out.println(id);
     }	
 
 }

@@ -6,17 +6,14 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DBHelper extends SQLiteOpenHelper {
     public DBHelper(Context context) {
-        super(context, "dbdemo.db", null, 1);
+    	
+        super(context, "AppListData.db", null, 1);
+        System.out.println(context.toString());
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) { 
-        String table = 
-            "CREATE TABLE cars (" +
-            "_id INTEGER PRIMARY KEY AUTOINCREMENT, " + 
-            "car_name TEXT NOT NULL);";
-        
-        db.execSQL(table);
+
     }
 
     @Override
