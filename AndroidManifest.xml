@@ -25,8 +25,16 @@
             android:label="voicePlayer"
             android:theme="@android:style/Theme.NoTitleBar" />
         <activity
+            android:name=".tab2.ListMain"
+            android:label="listMain"
+            android:theme="@android:style/Theme.NoTitleBar" />
+        <activity
             android:name=".tab2.CategoryListView"
             android:label="categoryList"
+            android:theme="@android:style/Theme.NoTitleBar" />
+        <activity
+            android:name=".tab2.VoiceListView"
+            android:label="VoiceList"
             android:theme="@android:style/Theme.NoTitleBar" />
         <activity
             android:name=".tab3.FavoritesListView"
@@ -37,7 +45,7 @@
             android:label="notePadList"
             android:theme="@android:style/Theme.NoTitleBar" />
         <activity
-            android:name=".tab5.AppSettingView"
+            android:name=".tab5.AppSetting"
             android:label="appSetting"
             android:theme="@android:style/Theme.NoTitleBar" />
     </application>

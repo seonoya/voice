@@ -44,11 +44,28 @@ public class DBHandler {
 
     // 카테고리 리스트
     public Cursor selectAll() throws SQLException {
-    	System.out.println(db.getPageSize());
-        Cursor cursor = db.rawQuery("SELECT _id ,cateCode, cateName from tCategory ",null);
+        Cursor cursor = db.rawQuery("SELECT cateCode as _id, cateName from tCategory ",null);
         
         if (cursor != null) { cursor.moveToFirst(); }
         
         return cursor;
     }
+    // 카테고리 리스트
+    public Cursor selectVoiceList(int cateCode) throws SQLException {
+    	String query;
+    	
+    	Cursor cursor;
+    	if(cateCode == 0){
+    		cursor = db.rawQuery("SELECT voiceCode as _id, voiceData from tVoiceData ",null);
+    	}else{
+    		String param[] = {"cateCode"};
+    		cursor = db.rawQuery("SELECT voiceCode as _id, voiceData from tVoiceData where cateCode = ? ",param);
+    	}
+        
+        
+        if (cursor != null) { cursor.moveToFirst(); }
+        
+        return cursor;
+    }
+    
 }
