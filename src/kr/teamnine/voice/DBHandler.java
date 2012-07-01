@@ -50,10 +50,9 @@ public class DBHandler {
         
         return cursor;
     }
-    // 카테고리 리스트
+    
+    // Voice List
     public Cursor selectVoiceList(int cateCode) throws SQLException {
-    	String query;
-    	
     	Cursor cursor;
     	if(cateCode == 0){
     		cursor = db.rawQuery("SELECT voiceCode as _id, voiceData from tVoiceData ",null);
@@ -61,6 +60,29 @@ public class DBHandler {
     		String param[] = {"cateCode"};
     		cursor = db.rawQuery("SELECT voiceCode as _id, voiceData from tVoiceData where cateCode = ? ",param);
     	}
+        
+        
+        if (cursor != null) { cursor.moveToFirst(); }
+        
+        return cursor;
+    }
+
+    
+    // Favorites List
+    public Cursor selectFavoritesList() throws SQLException {
+    	Cursor cursor;
+   		cursor = db.rawQuery("SELECT voiceCode as _id, voiceData from tFavorites ",null);
+        
+        
+        if (cursor != null) { cursor.moveToFirst(); }
+        
+        return cursor;
+    }
+
+    // History List
+    public Cursor selectHistoryList() throws SQLException {
+    	Cursor cursor;
+   		cursor = db.rawQuery("SELECT voiceCode as _id, voiceData from tHistoryData ",null);
         
         
         if (cursor != null) { cursor.moveToFirst(); }

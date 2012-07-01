@@ -37,11 +37,23 @@
             android:label="VoiceList"
             android:theme="@android:style/Theme.NoTitleBar" />
         <activity
-            android:name=".tab3.FavoritesListView"
+            android:name=".tab3.FavoritesMain"
             android:label="favoritesList"
             android:theme="@android:style/Theme.NoTitleBar" />
         <activity
-            android:name=".tab4.NotePadListView"
+            android:name=".tab3.FavoritesListView"
+            android:label="favoritesList"
+            android:theme="@android:style/Theme.NoTitleBar" />
+                <activity
+            android:name=".tab3.HistoryList"
+            android:label="favoritesList"
+            android:theme="@android:style/Theme.NoTitleBar" />
+        <activity
+            android:name=".tab4.NotePadMain"
+            android:label="notePadList"
+            android:theme="@android:style/Theme.NoTitleBar" />
+        <activity
+            android:name=".tab4.NotePadList"
             android:label="notePadList"
             android:theme="@android:style/Theme.NoTitleBar" />
         <activity

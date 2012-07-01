@@ -8,7 +8,7 @@ import java.io.InputStream;
 import kr.teamnine.voice.tab1.VoicePlayerMainView;
 import kr.teamnine.voice.tab2.ListMain;
 import kr.teamnine.voice.tab3.FavoritesListView;
-import kr.teamnine.voice.tab4.NotePadListView;
+import kr.teamnine.voice.tab4.NotePadMain;
 import kr.teamnine.voice.tab5.AppSetting;
 import android.app.TabActivity;
 import android.content.Intent;
@@ -95,7 +95,7 @@ public class VoiceActivity extends TabActivity {
 
 
         // 탭4 - 메모장
-        intent = new Intent().setClass(this, NotePadListView.class);
+        intent = new Intent().setClass(this, NotePadMain.class);
         spec = tabHost.newTabSpec("notePadList").setIndicator("메모장",
                           res.getDrawable(R.drawable.img_tab_icon4))
                       .setContent(intent);
