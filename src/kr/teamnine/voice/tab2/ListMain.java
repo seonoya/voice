@@ -5,8 +5,7 @@ import android.app.ActivityGroup;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import kr.teamnine.voice.R;
-import kr.teamnine.voice.tab2.CategoryListView;
+import kr.teamnine.voice.tab2.CategoryList;
 
 
 public class ListMain extends ActivityGroup {
@@ -19,12 +18,11 @@ public class ListMain extends ActivityGroup {
         // TODO Auto-generated method stub
 
     	super.onCreate(savedInstanceState);
-		setContentView(R.layout.tab2);
-		
+
 		history = new ArrayList<View>();
 		listGroup = this;
         
-		Intent intent = new Intent(ListMain.this, CategoryListView.class);
+		Intent intent = new Intent(ListMain.this, CategoryList.class);
 		View view = getLocalActivityManager().startActivity("CategoryListView", intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
 		replaceView(view);		
 		

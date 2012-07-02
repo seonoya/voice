@@ -26,6 +26,8 @@ public class HistoryList extends Activity {
         super.onCreate(savedInstanceState);
 		setContentView(R.layout.tab3);
 
+		
+		System.out.println("요긴 히스토리리스ㅡㅌ");
 		Button btnGoFavorites = (Button)findViewById(R.id.goFavorites);
 		btnGoFavorites.setOnClickListener(new Button.OnClickListener(){
 			public void onClick(View v){
@@ -34,7 +36,7 @@ public class HistoryList extends Activity {
 			
 		});
 				
-        voiceList = (ListView) findViewById(R.id.favoritesList);
+        voiceList = (ListView) findViewById(R.id.favoritesListView);
 
         
         // data get (category list)

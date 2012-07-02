@@ -5,9 +5,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import kr.teamnine.voice.tab1.VoicePlayerMainView;
+import kr.teamnine.voice.tab1.VoicePlayerMain;
 import kr.teamnine.voice.tab2.ListMain;
-import kr.teamnine.voice.tab3.FavoritesListView;
+import kr.teamnine.voice.tab3.FavoritesMain;
 import kr.teamnine.voice.tab4.NotePadMain;
 import kr.teamnine.voice.tab5.AppSetting;
 import android.app.TabActivity;
@@ -15,10 +15,13 @@ import android.content.Intent;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TabHost;
 
 
 public class VoiceActivity extends TabActivity {
+	
+	public final String TAG = "Ryu";
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,12 +33,11 @@ public class VoiceActivity extends TabActivity {
         File f = new File("/data/data/kr.teamnine.voice/databases/AppListData.db");
         File folder = new File("/data/data/kr.teamnine.voice/databases/");
         
-        System.out.println("f1111111111"+f.toString());
         
         if(f.exists()){
-        	System.out.println("있다면???");
+        	Log.e(TAG, "exists!!!");
+        	
         }else{
-        	System.out.println("없을때 생성 시작");
         	try {
         		folder.mkdir();
         		AssetManager am = this.getResources().getAssets();        		
@@ -54,8 +56,6 @@ public class VoiceActivity extends TabActivity {
 				fos.write(tempData);
 				fos.close();
 				
-				System.out.println("시발 왜안돼");
-				
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -73,8 +73,8 @@ public class VoiceActivity extends TabActivity {
         Intent intent;  // Reusable Intent for each tab
 
         // 탭1 - 보이스플레이어
-        intent = new Intent().setClass(this, VoicePlayerMainView.class);
-        spec = tabHost.newTabSpec("voicePlayer").setIndicator("보이스",
+        intent = new Intent().setClass(this, VoicePlayerMain.class);
+        spec = tabHost.newTabSpec("voicePlayerMain").setIndicator("보이스",
                           res.getDrawable(R.drawable.img_tab_icon1))
                       .setContent(intent);
         tabHost.addTab(spec);
@@ -87,8 +87,8 @@ public class VoiceActivity extends TabActivity {
         tabHost.addTab(spec);
 
         // 탭3 - 즐겨찾기 리스트
-        intent = new Intent().setClass(this, FavoritesListView.class);
-        spec = tabHost.newTabSpec("favoritesList").setIndicator("즐겨찾기",
+        intent = new Intent().setClass(this, FavoritesMain.class);
+        spec = tabHost.newTabSpec("favoritesMain").setIndicator("즐겨찾기",
                           res.getDrawable(R.drawable.img_tab_icon3))
                       .setContent(intent);
         tabHost.addTab(spec);

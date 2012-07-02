@@ -28,7 +28,7 @@
     </LinearLayout>
 
 	<ListView
-	    android:id="@+id/favoritesList"
+	    android:id="@+id/favoritesListView"
 	    android:layout_width="fill_parent"
 	    android:layout_height="fill_parent" />
     

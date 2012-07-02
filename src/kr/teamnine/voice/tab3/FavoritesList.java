@@ -13,7 +13,7 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.AdapterView.OnItemClickListener;
 import kr.teamnine.voice.R;
 
-public class FavoritesListView extends ActivityGroup  {
+public class FavoritesList extends ActivityGroup  {
 	/** Called when the activity is first created. */
     private SimpleCursorAdapter cursorAdapter;
     ListView voiceList;
@@ -26,20 +26,11 @@ public class FavoritesListView extends ActivityGroup  {
         super.onCreate(savedInstanceState);
 		setContentView(R.layout.tab3);
 
-		Button btngoHistory = (Button)findViewById(R.id.goHistory);
-		btngoHistory.setOnClickListener(new Button.OnClickListener(){
-			public void onClick(View v){
-
-				tempMove();
-			}
-			
-		});
-		
-
 
 		
-        voiceList = (ListView) findViewById(R.id.favoritesList);
+        voiceList = (ListView) findViewById(R.id.favoritesListView);
 
+        
         // data get (category list)
         DBHandler dbhandler = DBHandler.open(this);
     	Cursor cursor = dbhandler.selectFavoritesList();
@@ -54,43 +45,30 @@ public class FavoritesListView extends ActivityGroup  {
         
         voiceList.setOnItemClickListener(new OnItemClickListener() {
         	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3){
-        		tempMove();
+        		
         	}
 		});
         
         
-
-    }
-
-    public void onListItemClick(ListView parent, View v, int position, long id) {
-    	System.out.println(id);
-    }	
-
-    public void onClick(View v){
-    	
-    }
-    
-    
-    @Override
-    public void onBackPressed(){
-    	FavoritesMain parent = ((FavoritesMain)getParent()); 
-    	parent.onBackPressed();
-    	
-    }
-    
-    public void tempMove(){
-    	
-		System.out.println("--->"+ FavoritesMain.favoritesGroup);
-		Intent intent = new Intent(FavoritesListView.this, HistoryList.class);
-		
-		View view = FavoritesMain.favoritesGroup.getLocalActivityManager()
-				.startActivity("HistoryList", intent
-				.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
+		Button btngoHistory = (Button)findViewById(R.id.goHistory);
+		btngoHistory.setOnClickListener(new Button.OnClickListener(){
+			public void onClick(View v)
+			{
+        		Intent intent = new Intent(FavoritesList.this, HistoryList.class);
+        		System.out.println("--->"+FavoritesMain.favoritesGroup.getTaskId());
+        		View view = FavoritesMain.favoritesGroup.getLocalActivityManager()
+        				.startActivity("HistoryList", intent
+        				.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
+        		
+        		FavoritesMain.favoritesGroup.replaceView(view);		
+				
+				
+			}
 			
-			FavoritesMain.favoritesGroup.replaceView(view);
+		});
 
-    	
-    	
     }
+
+
     
 }

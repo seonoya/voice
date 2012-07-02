@@ -1,6 +1,5 @@
 package kr.teamnine.voice.tab2;
 
-
 import kr.teamnine.voice.DBHandler;
 import android.app.ActivityGroup;
 import android.content.Intent;
@@ -14,12 +13,11 @@ import android.widget.AdapterView.OnItemClickListener;
 import kr.teamnine.voice.R;
 
 
-public class CategoryListView extends ActivityGroup {
+public class CategoryList extends ActivityGroup {
 	/** Called when the activity is first created. */
     private SimpleCursorAdapter cursorAdapter;
     ListView categoryList;
     
-
     
     
     @Override
@@ -27,9 +25,6 @@ public class CategoryListView extends ActivityGroup {
         // TODO Auto-generated method stub
 
     	super.onCreate(savedInstanceState);
-    	
-    	// title bar Custom
-    	//requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
 		setContentView(R.layout.tab2);
 		//getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.tab2titlebar);
 		
@@ -56,8 +51,9 @@ public class CategoryListView extends ActivityGroup {
         		System.out.println("arg1" + arg1);
         		System.out.println("arg2" + arg2);
         		System.out.println("arg3" + arg3);
-        		Intent intent = new Intent(CategoryListView.this, VoiceListView.class);
+        		Intent intent = new Intent(CategoryList.this, VoiceListView.class);
         		intent.putExtra("cateCode", arg3);
+        		//System.out.println(ListMain);
         		View view = ListMain.listGroup.getLocalActivityManager()
         				.startActivity("VoiceListView", intent
         				.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();

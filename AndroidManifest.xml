@@ -7,6 +7,8 @@
     <uses-sdk android:minSdkVersion="7" />
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.READ_OWNER_DATA"/>
 
     <application
         android:icon="@drawable/ic_launcher"
@@ -20,34 +22,51 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
         <activity
-            android:name=".tab1.VoicePlayerMainView"
+            android:name=".tab1.VoicePlayerMain"
+            android:label="voicePlayerMain"
+            android:theme="@android:style/Theme.NoTitleBar" />
+        <activity
+            android:name=".tab1.VoiceEdit"
+            android:label="voiceEdit"
+            android:theme="@android:style/Theme.NoTitleBar" />
+        <activity
+            android:name=".tab1.VoicePlayer"
             android:label="voicePlayer"
             android:theme="@android:style/Theme.NoTitleBar" />
+        <activity
+            android:name=".tab1.VoiceManual"
+            android:label="voiceManual"
+            android:theme="@android:style/Theme.NoTitleBar" />
+                
+        
         <activity
             android:name=".tab2.ListMain"
             android:label="listMain"
             android:theme="@android:style/Theme.NoTitleBar" />
         <activity
-            android:name=".tab2.CategoryListView"
+            android:name=".tab2.CategoryList"
             android:label="categoryList"
             android:theme="@android:style/Theme.NoTitleBar" />
         <activity
             android:name=".tab2.VoiceListView"
             android:label="VoiceList"
             android:theme="@android:style/Theme.NoTitleBar" />
+        
         <activity
             android:name=".tab3.FavoritesMain"
-            android:label="favoritesList"
+            android:label="FavoritesMain"
             android:theme="@android:style/Theme.NoTitleBar" />
         <activity
-            android:name=".tab3.FavoritesListView"
-            android:label="favoritesList"
+            android:name=".tab3.FavoritesList"
+            android:label="FavoritesList"
             android:theme="@android:style/Theme.NoTitleBar" />
-                <activity
+        <activity
             android:name=".tab3.HistoryList"
-            android:label="favoritesList"
+            android:label="HistoryList"
             android:theme="@android:style/Theme.NoTitleBar" />
+        
         <activity
             android:name=".tab4.NotePadMain"
             android:label="notePadList"

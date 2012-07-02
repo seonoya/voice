@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
     <PreferenceCategory android:title="사용자 기능 설정"></PreferenceCategory><CheckBoxPreference android:summary="음성을 자동으로 재생합니다." android:title="음성 자동재생" android:key="autoPlay"/>
-    <CheckBoxPreference android:summary="시작과 끝을 진동으로 알려 드립니다." android:title="진등 피드백 설정" android:key="vibratiion"/>
+    <CheckBoxPreference android:summary="시작과 끝을 진동으로 알려 드립니다." android:title="진등 피드백 설정" android:key="vibration"/>
     
     
 

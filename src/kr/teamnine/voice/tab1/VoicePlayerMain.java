@@ -1,4 +1,4 @@
-package kr.teamnine.voice.tab3;
+package kr.teamnine.voice.tab1;
 
 import java.util.ArrayList;
 import android.app.ActivityGroup;
@@ -6,31 +6,30 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import kr.teamnine.voice.R;
-import kr.teamnine.voice.tab3.FavoritesList;
+import kr.teamnine.voice.tab1.VoicePlayer;
 
-
-public class FavoritesMain extends ActivityGroup {
+public class VoicePlayerMain extends ActivityGroup {
 	/** Called when the activity is first created. */
-	public static FavoritesMain favoritesGroup; 
+	public static VoicePlayerMain playerGroup; 
 	private ArrayList<View>history;
-    
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        // TODO Auto-generated method stub
-
-    	super.onCreate(savedInstanceState);
-		setContentView(R.layout.tab3);
+	
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.tab1);
+		System.out.println("여기까진1");
 		
 		history = new ArrayList<View>();
-		favoritesGroup = this;
+		playerGroup = this;
         
-		Intent intent = new Intent(FavoritesMain.this, FavoritesList.class);
-		View view = getLocalActivityManager().startActivity("FavoritesList", intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
+		Intent intent = new Intent(VoicePlayerMain.this, VoicePlayer.class);
+		intent.putExtra("voiceCode", 0);
+		intent.putExtra("voiceTxt", "");
+		View view = getLocalActivityManager().startActivity("voicePlayer", intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
 		replaceView(view);		
-		
-		
-    }
 
+	}
+	
     public void replaceView(View view) {
 		// TODO Auto-generated method stub
 		history.add(view);
@@ -58,8 +57,9 @@ public class FavoritesMain extends ActivityGroup {
     
     @Override
     public void onBackPressed(){
-    	favoritesGroup.back();
+    	playerGroup.back();
 
     	return;
     }
+	
 }
