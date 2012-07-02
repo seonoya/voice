@@ -10,7 +10,7 @@ import android.view.View;
 
 public class NotePadMain extends ActivityGroup {
 	/** Called when the activity is first created. */
-	public static NotePadMain listGroup; 
+	public static NotePadMain noteGroup; 
 	private ArrayList<View>history;
     
     @Override
@@ -21,7 +21,7 @@ public class NotePadMain extends ActivityGroup {
 		setContentView(R.layout.tab2);
 		
 		history = new ArrayList<View>();
-		listGroup = this;
+		noteGroup = this;
         
 		Intent intent = new Intent(NotePadMain.this, NotePadList.class);
 		View view = getLocalActivityManager().startActivity("NotePadList", intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
@@ -57,7 +57,7 @@ public class NotePadMain extends ActivityGroup {
     
     @Override
     public void onBackPressed(){
-    	listGroup.back();
+    	noteGroup.back();
 
     	return;
     }

@@ -12,8 +12,6 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.AdapterView.OnItemClickListener;
 import kr.teamnine.voice.R;
-import kr.teamnine.voice.tab3.FavoritesMain;
-import kr.teamnine.voice.tab3.HistoryList;
 
 public class FavoritesListView extends ActivityGroup  {
 	/** Called when the activity is first created. */
@@ -31,12 +29,8 @@ public class FavoritesListView extends ActivityGroup  {
 		Button btngoHistory = (Button)findViewById(R.id.goHistory);
 		btngoHistory.setOnClickListener(new Button.OnClickListener(){
 			public void onClick(View v){
-				Intent intent = new Intent(FavoritesListView.this, HistoryList.class);
-				View view = getLocalActivityManager().startActivity("HistoryList", intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
-				FavoritesMain.listGroup.replaceView(view);
-							
-				
-				
+
+				tempMove();
 			}
 			
 		});
@@ -60,7 +54,7 @@ public class FavoritesListView extends ActivityGroup  {
         
         voiceList.setOnItemClickListener(new OnItemClickListener() {
         	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3){
-        		System.out.println(arg3);
+        		tempMove();
         	}
 		});
         
@@ -81,6 +75,21 @@ public class FavoritesListView extends ActivityGroup  {
     public void onBackPressed(){
     	FavoritesMain parent = ((FavoritesMain)getParent()); 
     	parent.onBackPressed();
+    	
+    }
+    
+    public void tempMove(){
+    	
+		System.out.println("--->"+ FavoritesMain.favoritesGroup);
+		Intent intent = new Intent(FavoritesListView.this, HistoryList.class);
+		
+		View view = FavoritesMain.favoritesGroup.getLocalActivityManager()
+				.startActivity("HistoryList", intent
+				.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
+			
+			FavoritesMain.favoritesGroup.replaceView(view);
+
+    	
     	
     }
     

@@ -1,17 +1,17 @@
 package kr.teamnine.voice.tab3;
 
 import java.util.ArrayList;
-
-import kr.teamnine.voice.R;
-import kr.teamnine.voice.tab3.FavoritesListView;
 import android.app.ActivityGroup;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import kr.teamnine.voice.R;
+import kr.teamnine.voice.tab3.FavoritesListView;
+
 
 public class FavoritesMain extends ActivityGroup {
 	/** Called when the activity is first created. */
-	public static FavoritesMain listGroup; 
+	public static FavoritesMain favoritesGroup; 
 	private ArrayList<View>history;
     
     @Override
@@ -22,7 +22,7 @@ public class FavoritesMain extends ActivityGroup {
 		setContentView(R.layout.tab3);
 		
 		history = new ArrayList<View>();
-		listGroup = this;
+		favoritesGroup = this;
         
 		Intent intent = new Intent(FavoritesMain.this, FavoritesListView.class);
 		View view = getLocalActivityManager().startActivity("FavoritesListView", intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
@@ -58,7 +58,7 @@ public class FavoritesMain extends ActivityGroup {
     
     @Override
     public void onBackPressed(){
-    	listGroup.back();
+    	favoritesGroup.back();
 
     	return;
     }

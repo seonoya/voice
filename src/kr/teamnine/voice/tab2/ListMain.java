@@ -1,6 +1,5 @@
 package kr.teamnine.voice.tab2;
 
-
 import java.util.ArrayList;
 import android.app.ActivityGroup;
 import android.content.Intent;
