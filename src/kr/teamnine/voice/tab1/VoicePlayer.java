@@ -47,7 +47,7 @@ public class VoicePlayer extends ActivityGroup implements OnClickListener{
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-    	System.out.println("여기까진2");
+
         // TODO Auto-generated method stub
     	super.onCreate(savedInstanceState);
 		setContentView(R.layout.tab1);

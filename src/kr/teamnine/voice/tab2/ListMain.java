@@ -60,5 +60,10 @@ public class ListMain extends ActivityGroup {
 
     	return;
     }
+    
+    // move Voice Player
+    public void moveVoicePlayer(){
+    	
+    }
 
 }

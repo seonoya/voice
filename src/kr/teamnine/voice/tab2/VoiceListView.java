@@ -2,20 +2,23 @@ package kr.teamnine.voice.tab2;
 
 
 import kr.teamnine.voice.DBHandler;
+import kr.teamnine.voice.R;
+import kr.teamnine.voice.VoiceApplication;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
-import android.widget.AdapterView.OnItemClickListener;
-import kr.teamnine.voice.R;
+import android.widget.TextView;
 
 public class VoiceListView extends Activity {
 	/** Called when the activity is first created. */
     private SimpleCursorAdapter cursorAdapter;
+
     ListView voiceList;
 
 
@@ -48,8 +51,15 @@ public class VoiceListView extends Activity {
         
         voiceList.setOnItemClickListener(new OnItemClickListener() {
         	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3){
+        		//View parentView = (View) arg0[arg3].getParent();
+        	    VoiceApplication ACN = (VoiceApplication)getApplicationContext();        		
+        		
+        		ACN.setVoiceCode(((TextView)arg1.findViewById(R.id.code)).getId());
+        		ACN.setVoiceTxt(((TextView)arg1.findViewById(R.id.list)).getText().toString());
+        		System.out.println(((TextView)arg1.findViewById(R.id.code)).getId()+"//");		
+        		
+        		
 
-        		System.out.println(arg3);
 
         	}
 		});

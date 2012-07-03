@@ -26,8 +26,6 @@ public class VoiceActivity extends TabActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-
-        
         
         // DB copy
         copyDB();
@@ -123,62 +121,53 @@ public class VoiceActivity extends TabActivity {
     }
     
     public void mp3Copy(){
-    	try{
+		File f;
+        File folder = new File("/mnt/sdcard/voice/mp3/");
+        if(folder.exists()){
+        	Log.e(TAG, "MP3 exists!!!");
+        	
+        }else{
+        	
+        	try{
 
-    		File f;
-            File folder = new File("/mnt/sdcard/voice/mp3/");
-            
-            folder.mkdir();
-    		System.out.println("===>copy Mp3");
-    		InputStream is;
-    		
-    		AssetManager am = this.getResources().getAssets();        		
-    		
-    		String[] list = am.list("");
-    		
-    		System.out.println(list.length);
-    		for(int i = 0; i < list.length; i++){
-    			if(list[i].toLowerCase().endsWith(".mp3")){
+                folder.mkdir();
+        		InputStream is;
+        		
+        		AssetManager am = this.getResources().getAssets();        		
+        		String[] list = am.list("");
+        		
+        		for(int i = 0; i < list.length; i++){
+        			if(list[i].toLowerCase().endsWith(".mp3")){
+            			
+            			System.out.println("yes:" + list[i].toString() );
+            			is = am.open(list[i]);
+            			
+            			f = new File("/mnt/sdcard/voice/" + list[i]);
+        				f.createNewFile();
+        				
+        				long fileSize = is.available();
+        				
+        				byte[] tempData = new byte[(int)fileSize];
+        				
+        				
+        				is.read(tempData);
+        				is.close();
+        				
+        				FileOutputStream fos = new FileOutputStream(f);
+        				fos.write(tempData);
+        				fos.close();        			
+        			}else{
+        				//System.out.println("no:" + list[i].toString() );
+        			}
         			
-        			System.out.println("yes:" + list[i].toString() );
-        			is = am.open(list[i]);
-        			
-        			f = new File("/mnt/sdcard/voice/" + list[i]);
-    				f.createNewFile();
-    				
-    				long fileSize = is.available();
-    				
-    				byte[] tempData = new byte[(int)fileSize];
-    				
-    				
-    				is.read(tempData);
-    				is.close();
-    				
-    				FileOutputStream fos = new FileOutputStream(f);
-    				fos.write(tempData);
-    				fos.close();        			
-    			}else{
-    				//System.out.println("no:" + list[i].toString() );
-    			}
-    			
-    		}
-    		
-    	}catch( IOException e){
-    		
-    	}
+        		}
+        		
+        	}catch( IOException e){
+        		Log.e(TAG,e.toString());
+        	}        	
+        	
+        }
 
-		
-    	
-    	
     }
 
-    // files list
-    private String[] getList(File dir){
-    	if(dir != null && dir.exists()){
-    		return dir.list();
-    	}else{
-    		return null;
-    	}
-    }
-    
 }
