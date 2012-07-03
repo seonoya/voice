@@ -36,8 +36,8 @@
             android:label="voicePlayer"
             android:theme="@android:style/Theme.NoTitleBar" />
         <activity
-            android:name=".tab1.VoiceManual"
-            android:label="voiceManual"
+            android:name=".tab1.VoiceManaul"
+            android:label="voiceManaul"
             android:theme="@android:style/Theme.NoTitleBar" />
                 
         

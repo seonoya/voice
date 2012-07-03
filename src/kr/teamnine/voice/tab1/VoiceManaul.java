@@ -1,5 +1,5 @@
 package kr.teamnine.voice.tab1;
 
-public class VoiceManual {
+public class VoiceManaul {
 
 }

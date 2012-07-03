@@ -2,9 +2,11 @@ package kr.teamnine.voice.tab1;
 
 import java.util.ArrayList;
 import android.app.ActivityGroup;
+import android.app.TabActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TabHost;
 import kr.teamnine.voice.R;
 import kr.teamnine.voice.tab1.VoicePlayer;
 
@@ -17,7 +19,7 @@ public class VoicePlayerMain extends ActivityGroup {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.tab1);
-		System.out.println("여기까진1");
+		
 		
 		history = new ArrayList<View>();
 		playerGroup = this;
@@ -62,4 +64,21 @@ public class VoicePlayerMain extends ActivityGroup {
     	return;
     }
 	
+
+    
+    
+    // move List
+    public void moveList(){
+    	TabActivity parentTabActivity = (TabActivity)getParent();
+    	TabHost tabHost = parentTabActivity.getTabHost();
+    	tabHost.setCurrentTabByTag("listMain");
+    }
+
+    // move notePad
+    public void moveNotePad(){
+    	TabActivity parentTabActivity = (TabActivity)getParent();
+    	TabHost tabHost = parentTabActivity.getTabHost();
+    	tabHost.setCurrentTabByTag("notePadList");
+    }
+
 }

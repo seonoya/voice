@@ -23,7 +23,7 @@ public class FileDownload {
 	//http://translate.google.co.kr/translate_tts?ie=UTF-8&q=πÆ¿Â&tl=ko&prew=input
 	String apiUrl = "http://translate.google.co.kr/translate_tts?ie=UTF-8&";
 	String tempFileName = "120530144241.mp3";
-	String filePath = "/data/data/kr.teamnine.voice/files";
+	String filePath = "/mnt/sdcard/voice";
 	String fileName = "120530144241.mp3";
 
 	public final String TAG = "Ryu";

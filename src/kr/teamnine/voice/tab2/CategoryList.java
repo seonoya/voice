@@ -47,10 +47,6 @@ public class CategoryList extends ActivityGroup {
         
         categoryList.setOnItemClickListener(new OnItemClickListener() {
         	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3){
-        		System.out.println("arg0" + arg0);
-        		System.out.println("arg1" + arg1);
-        		System.out.println("arg2" + arg2);
-        		System.out.println("arg3" + arg3);
         		Intent intent = new Intent(CategoryList.this, VoiceListView.class);
         		intent.putExtra("cateCode", arg3);
         		//System.out.println(ListMain);

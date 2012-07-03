@@ -28,9 +28,11 @@ public class VoiceListView extends Activity {
 
         voiceList = (ListView) findViewById(R.id.categoryList);
 
-        Intent intent = getIntent();
+        
         //request Data
+        Intent intent = getIntent();
         int cateCode = intent.getExtras().getInt("cateCode");
+        
         
         // data get (category list)
         DBHandler dbhandler = DBHandler.open(this);
@@ -46,6 +48,7 @@ public class VoiceListView extends Activity {
         
         voiceList.setOnItemClickListener(new OnItemClickListener() {
         	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3){
+
         		System.out.println(arg3);
 
         	}
@@ -54,10 +57,6 @@ public class VoiceListView extends Activity {
         
 
     }
-
-    public void onListItemClick(ListView parent, View v, int position, long id) {
-    	System.out.println(id);
-    }	
 
     
     @Override

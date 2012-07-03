@@ -10,25 +10,25 @@
         android:orientation="horizontal" >
 
         <Button
-            android:id="@+id/button11"
+            android:id="@+id/insertVoice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="보이스입력" />
 
         <Button
-            android:id="@+id/button22"
+            android:id="@+id/searchVoice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="보이스검색" />
 
         <Button
-            android:id="@+id/button34"
+            android:id="@+id/insertNotePad"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="메모장입력" />
 
         <Button
-            android:id="@+id/button44"
+            android:id="@+id/viewManaul"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="사용설명서" />

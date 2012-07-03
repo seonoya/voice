@@ -6,7 +6,11 @@ import java.io.IOException;
 
 import kr.teamnine.voice.DBHandler;
 import kr.teamnine.voice.R;
+import kr.teamnine.voice.tab2.CategoryList;
+import kr.teamnine.voice.tab2.ListMain;
+import kr.teamnine.voice.tab2.VoiceListView;
 import android.app.ActivityGroup;
+import android.app.TabActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -24,6 +28,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.TabHost;
 
 public class VoicePlayer extends ActivityGroup implements OnClickListener{
 	
@@ -36,7 +41,7 @@ public class VoicePlayer extends ActivityGroup implements OnClickListener{
     private FileDownload fileDownload;
 	private SimpleCursorAdapter cursorAdapter;
     public MediaPlayer mp;
-    public String filePath = "/data/data/kr.teamnine.voice/files";
+    public String filePath = "/mnt/sdcard/voice";
     public String fileName = "120530144241.mp3";
     public String mp3Path = "";
     
@@ -47,11 +52,20 @@ public class VoicePlayer extends ActivityGroup implements OnClickListener{
     	super.onCreate(savedInstanceState);
 		setContentView(R.layout.tab1);
 
-		Button btnPlay = (Button)findViewById(R.id.mp3play);
-		Button btnStop = (Button)findViewById(R.id.mp3stop);
+		// button setting () 
+		Button btnPlay			= (Button)findViewById(R.id.mp3play);
+		Button btnStop			= (Button)findViewById(R.id.mp3stop);
+		Button btnInsertVoice	= (Button)findViewById(R.id.insertVoice);
+		Button btnSearchVoice	= (Button)findViewById(R.id.searchVoice);
+		Button btnInsertNotePad = (Button)findViewById(R.id.insertNotePad);
+		Button btnViewManaul	 = (Button)findViewById(R.id.viewManaul);
 		
 		btnPlay.setOnClickListener(this);
 		btnStop.setOnClickListener(this);
+		btnInsertVoice.setOnClickListener(this);
+		btnSearchVoice.setOnClickListener(this);
+		btnInsertNotePad.setOnClickListener(this);
+		btnViewManaul.setOnClickListener(this);
 		
 		
         // get setting Info
@@ -86,7 +100,7 @@ public class VoicePlayer extends ActivityGroup implements OnClickListener{
             
         }
 
-        fileName = "120530144241.mp3";
+        fileName = "120622202530.mp3";
         // get filePath
         mp3Path = getMp3Path(voiceCode);
 
@@ -135,14 +149,33 @@ public class VoicePlayer extends ActivityGroup implements OnClickListener{
     
     public void onClick(View v){
     	int id = v.getId();
+    	
+    	//play btn
     	if(id == R.id.mp3play){
     		playMp3(mp3Path);
     	
+    	//stop btn
     	}else if(id == R.id.mp3stop){
     		stopMp3();
 
+    	//stop btn
+    	}else if(id == R.id.insertVoice){
+    		moveInsertVoice();
+
+    	//stop btn
+    	}else if(id == R.id.searchVoice){
+    		moveList();
+
+        	//stop btn
+    	}else if(id == R.id.insertNotePad){
+    		moveNotePad();
+
+        	//stop btn
+    	}else if(id == R.id.viewManaul){
+    		moveManaul();
+    	
     	}else{
-    		
+    		//nothing
     	}
     	
     }
@@ -215,5 +248,35 @@ public class VoicePlayer extends ActivityGroup implements OnClickListener{
     	vibe.vibrate(100);                    
     }
 
+    
+    // move insert Voice
+    public void moveInsertVoice(){
+		Intent intent = new Intent(VoicePlayer.this, VoiceEdit.class);
+		View view = VoicePlayerMain.playerGroup.getLocalActivityManager()
+				.startActivity("VoiceEdit", intent
+				.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
+		VoicePlayerMain.playerGroup.replaceView(view);		
+    }
+    
+    // move View Manaul
+    public void moveManaul(){
+		Intent intent = new Intent(VoicePlayer.this, VoiceManaul.class);
+		View view = VoicePlayerMain.playerGroup.getLocalActivityManager()
+				.startActivity("VoiceManaul", intent
+				.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
+		VoicePlayerMain.playerGroup.replaceView(view);		
+    }    
 
+    
+    
+    
+    // move List (search)
+    public void moveList(){
+    	VoicePlayerMain.playerGroup.moveList();
+    }
+
+    // move notePad
+    public void moveNotePad(){
+    	VoicePlayerMain.playerGroup.moveList();
+    }
 }

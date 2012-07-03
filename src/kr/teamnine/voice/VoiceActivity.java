@@ -29,40 +29,11 @@ public class VoiceActivity extends TabActivity {
 
         
         
-        // dbüũ
-        File f = new File("/data/data/kr.teamnine.voice/databases/AppListData.db");
-        File folder = new File("/data/data/kr.teamnine.voice/databases/");
+        // DB copy
+        copyDB();
         
-        
-        if(f.exists()){
-        	Log.e(TAG, "exists!!!");
-        	
-        }else{
-        	try {
-        		folder.mkdir();
-        		AssetManager am = this.getResources().getAssets();        		
-				InputStream is = am.open("AppListData.db");
-				f.createNewFile();
-				
-				long fileSize = is.available();
-				
-				byte[] tempData = new byte[(int)fileSize];
-				
-				
-				is.read(tempData);
-				is.close();
-				
-				FileOutputStream fos = new FileOutputStream(f);
-				fos.write(tempData);
-				fos.close();
-				
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-        	
-        }
-        
+        // MP3 copy
+        mp3Copy();
         
         
         
@@ -114,5 +85,100 @@ public class VoiceActivity extends TabActivity {
         
     }
     
+    public void copyDB(){
+        // dbüũ
+        File f = new File("/data/data/kr.teamnine.voice/databases/AppListData.db");
+        File folder = new File("/data/data/kr.teamnine.voice/databases/");
+        
+        
+        if(f.exists()){
+        	Log.e(TAG, "exists!!!");
+        	
+        }else{
+        	try {
+        		folder.mkdir();
+        		AssetManager am = this.getResources().getAssets();        		
+				InputStream is = am.open("AppListData.db");
+				f.createNewFile();
+				
+				long fileSize = is.available();
+				
+				byte[] tempData = new byte[(int)fileSize];
+				
+				
+				is.read(tempData);
+				is.close();
+				
+				FileOutputStream fos = new FileOutputStream(f);
+				fos.write(tempData);
+				fos.close();
+				
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        	
+        }
+    	
+    }
+    
+    public void mp3Copy(){
+    	try{
+
+    		File f;
+            File folder = new File("/mnt/sdcard/voice/mp3/");
+            
+            folder.mkdir();
+    		System.out.println("===>copy Mp3");
+    		InputStream is;
+    		
+    		AssetManager am = this.getResources().getAssets();        		
+    		
+    		String[] list = am.list("");
+    		
+    		System.out.println(list.length);
+    		for(int i = 0; i < list.length; i++){
+    			if(list[i].toLowerCase().endsWith(".mp3")){
+        			
+        			System.out.println("yes:" + list[i].toString() );
+        			is = am.open(list[i]);
+        			
+        			f = new File("/mnt/sdcard/voice/" + list[i]);
+    				f.createNewFile();
+    				
+    				long fileSize = is.available();
+    				
+    				byte[] tempData = new byte[(int)fileSize];
+    				
+    				
+    				is.read(tempData);
+    				is.close();
+    				
+    				FileOutputStream fos = new FileOutputStream(f);
+    				fos.write(tempData);
+    				fos.close();        			
+    			}else{
+    				//System.out.println("no:" + list[i].toString() );
+    			}
+    			
+    		}
+    		
+    	}catch( IOException e){
+    		
+    	}
+
+		
+    	
+    	
+    }
+
+    // files list
+    private String[] getList(File dir){
+    	if(dir != null && dir.exists()){
+    		return dir.list();
+    	}else{
+    		return null;
+    	}
+    }
     
 }
