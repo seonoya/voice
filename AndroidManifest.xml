@@ -24,6 +24,14 @@
             </intent-filter>
         </activity>
         
+        
+        <!-- App INTRO -->
+        <activity
+            android:name=".AppIntroActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        </activity>
+        
         <activity
             android:name=".tab1.VoicePlayerMain"
             android:label="voicePlayerMain"
