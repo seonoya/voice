@@ -8,29 +8,30 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
+        android:name=".VoiceApplication"
         android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name" 
-        android:name=".VoiceApplication">
+        android:label="@string/app_name" >
         <activity
             android:name=".VoiceActivity"
-            android:label="@string/app_name" >
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
-        
+
         <!-- App INTRO -->
         <activity
             android:name=".AppIntroActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar" />
-        
+
+        <!-- tab activity -->
         <activity
             android:name=".tab1.VoicePlayerMain"
             android:label="voicePlayerMain"
@@ -47,8 +48,6 @@
             android:name=".tab1.VoiceManaul"
             android:label="voiceManaul"
             android:theme="@android:style/Theme.NoTitleBar" />
-                
-        
         <activity
             android:name=".tab2.ListMain"
             android:label="listMain"
@@ -61,7 +60,6 @@
             android:name=".tab2.VoiceListView"
             android:label="VoiceList"
             android:theme="@android:style/Theme.NoTitleBar" />
-        
         <activity
             android:name=".tab3.FavoritesMain"
             android:label="FavoritesMain"
@@ -74,18 +72,17 @@
             android:name=".tab3.HistoryList"
             android:label="HistoryList"
             android:theme="@android:style/Theme.NoTitleBar" />
-        
-        <activity
-            android:name=".tab4.NotePadMain"
-            android:label="notePadList"
-            android:theme="@android:style/Theme.NoTitleBar" />
-        <activity
-            android:name=".tab4.NotePadList"
-            android:label="notePadList"
-            android:theme="@android:style/Theme.NoTitleBar" />
         <activity
             android:name=".tab5.AppSetting"
             android:label="appSetting"
+            android:theme="@android:style/Theme.NoTitleBar" />
+
+        <!-- notepad activity -->
+        <activity
+            android:name=".tab4.NotePadList"
+            android:theme="@android:style/Theme.NoTitleBar" />
+        <activity
+            android:name=".tab4.NotePadMain"
             android:theme="@android:style/Theme.NoTitleBar" />
     </application>
 

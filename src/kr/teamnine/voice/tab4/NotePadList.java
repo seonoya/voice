@@ -13,34 +13,38 @@ import android.widget.AdapterView.OnItemClickListener;
 
 public class NotePadList extends Activity {
 	/** Called when the activity is first created. */
-    private SimpleCursorAdapter cursorAdapter;
-    ListView noteList;
+	private SimpleCursorAdapter cursorAdapter;
+	ListView noteList;
 
-	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.note_list);
 
 		noteList = (ListView) findViewById(R.id.noteList);
-		
-        // data get (category list)
-        DBHandler dbhandler = DBHandler.open(this);
-    	Cursor cursor = dbhandler.selectNoteList();
-        startManagingCursor(cursor);
-        
-        String[] FROM = new String[]{"noteData","date"};
-        int[] TO = new int[]{R.id.noteData, R.id.noteDate};
-        cursorAdapter = new SimpleCursorAdapter(this, R.layout.note_list_row, cursor, FROM, TO );
-        noteList.setAdapter(cursorAdapter);
-        dbhandler.close();
-        
-        
-        noteList.setOnItemClickListener(new OnItemClickListener() {
-        	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3){
 
-        	}
+		// data get (category list)
+		DBHandler dbhandler = DBHandler.open(this);
+		Cursor cursor = dbhandler.selectNoteList();
+		startManagingCursor(cursor);
+
+		String[] FROM = new String[] { "noteData", "date" };
+		int[] TO = new int[] { R.id.noteData, R.id.noteDate };
+		cursorAdapter = new SimpleCursorAdapter(this, R.layout.note_list_row,
+				cursor, FROM, TO);
+		noteList.setAdapter(cursorAdapter);
+		dbhandler.close();
+
+		noteList.setOnItemClickListener(new OnItemClickListener() {
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+
+			}
 		});
 
 	}
+
+	
+	 
+
 }
