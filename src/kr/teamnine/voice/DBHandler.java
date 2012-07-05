@@ -25,12 +25,61 @@ public class DBHandler {
         helper.close();
     }
 
-    public long insert(String car_name) {
-        ContentValues values = new ContentValues();
-        values.put("car_name", car_name);        
+    
+    
+    
+    // voice insert
+    public long insertVoiceData(String voiceData, String choData, String fileName, int cateCode){
+    	
+    	ContentValues values = new ContentValues();
+    	values.put("voiceData"	, voiceData);
+    	values.put("choData"	, choData);
+    	values.put("fileName"	, fileName);
+    	values.put("cateCode"	, cateCode);
+    	values.put("count"		, 0);
+    	values.put("data"		, 0);
+    	
+    	return db.insert("tVoiceData", null, values);
+    	
+    }
+    
+    // favorites insert
+    public long insertFavorites(int voiceCode, String voiceData){
+    	
+    	ContentValues values = new ContentValues();
+    	values.put("voiceCode"	, voiceCode);
+    	values.put("voiceData"	, voiceData);
 
-        return db.insert("cars", null, values);
-    } 
+    	return db.insert("tFavorites", null, values);
+    	
+    }    
+    
+    // category insert
+    public long insertCategory(int cateName){
+    	
+    	ContentValues values = new ContentValues();
+    	values.put("cateName"	, cateName);
+
+    	return db.insert("tCategory", null, values);
+    	
+    }        
+   
+    // category insert
+    public long insertHistory(int voiceCode, String voiceData, String date){
+    	
+    	ContentValues values = new ContentValues();
+    	values.put("voiceCode"	, voiceCode);
+    	values.put("voiceData"	, voiceData);
+    	values.put("date"		, date);
+    	
+    	return db.insert("tHistoryData", null, values);
+    	
+    }    
+    
+        
+    
+    
+    
 
     public Cursor select(int id) throws SQLException {        
         Cursor cursor = db.query(true, "cars", 
@@ -42,6 +91,25 @@ public class DBHandler {
         return cursor;
     }
 
+    // recent voice
+    public Cursor selectRecntVoice(){
+    	String param[] = {"voiceCode"};
+    	Cursor cursor = db.rawQuery(" SELECT voiceCode as _id , fileName " +
+    								" FROM tVoiceData as A join tHistoryData as B on a.voiceCode = b.voiceCode " +
+    								" order by b.date desc limit 0,10 ", param);
+    	return cursor;
+    }
+    
+    
+    
+    // voice Select
+    public Cursor selectFileName(int voiceCode){
+    	String param[] = {"voiceCode"};
+    	Cursor cursor = db.rawQuery("SELECT voiceCode as _id , fileName FROM tVoiceData where voiceCode = ? ", param);
+    	return cursor;
+    }
+    
+    
     // 카테고리 리스트
     public Cursor selectAll() throws SQLException {
         Cursor cursor = db.rawQuery("SELECT cateCode as _id, cateName from tCategory ",null);

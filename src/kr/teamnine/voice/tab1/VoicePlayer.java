@@ -6,6 +6,7 @@ import java.io.IOException;
 
 import kr.teamnine.voice.DBHandler;
 import kr.teamnine.voice.R;
+import kr.teamnine.voice.VoiceApplication;
 import kr.teamnine.voice.tab2.CategoryList;
 import kr.teamnine.voice.tab2.ListMain;
 import kr.teamnine.voice.tab2.VoiceListView;
@@ -27,6 +28,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TabHost;
 
@@ -37,17 +39,18 @@ public class VoicePlayer extends ActivityGroup implements OnClickListener{
 
     private boolean autoPlay = false;
     private boolean vibration = false;
-    private ListView categoryList;
     private FileDownload fileDownload;
 	private SimpleCursorAdapter cursorAdapter;
     public MediaPlayer mp;
     public String filePath = "/mnt/sdcard/voice";
-    public String fileName = "120530144241.mp3";
+    public String fileName = "";
     public String mp3Path = "";
+    public ListView recentList;
+
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
+        DBHandler dbhandler = DBHandler.open(this);
         // TODO Auto-generated method stub
     	super.onCreate(savedInstanceState);
 		setContentView(R.layout.tab1);
@@ -58,10 +61,9 @@ public class VoicePlayer extends ActivityGroup implements OnClickListener{
 		Button btnInsertVoice	= (Button)findViewById(R.id.insertVoice);
 		Button btnSearchVoice	= (Button)findViewById(R.id.searchVoice);
 		Button btnInsertNotePad = (Button)findViewById(R.id.insertNotePad);
-		Button btnViewManaul	 = (Button)findViewById(R.id.viewManaul);
+		Button btnViewManaul	= (Button)findViewById(R.id.viewManaul);
 		
 		btnPlay.setOnClickListener(this);
-		btnStop.setOnClickListener(this);
 		btnInsertVoice.setOnClickListener(this);
 		btnSearchVoice.setOnClickListener(this);
 		btnInsertNotePad.setOnClickListener(this);
@@ -73,36 +75,72 @@ public class VoicePlayer extends ActivityGroup implements OnClickListener{
         autoPlay	=  pref.getBoolean("autoPlay", false);
         vibration	=  pref.getBoolean("vibration", false);
 		
+
+        // recent voice
+        
+    	Cursor cursor = dbhandler.selectRecntVoice();
+        startManagingCursor(cursor);
+        
+        String[] FROM = new String[]{"_id","voiceData"};
+        int[] TO = new int[]{R.id.code, R.id.recentBtn};
+        cursorAdapter = new SimpleCursorAdapter(this, R.layout.tab1_recent_list, cursor, FROM, TO );
+        recentList.setAdapter(cursorAdapter);
+
+        
+        
         
         //request Data
-        Intent intent = getIntent();
-        int voiceCode = intent.getExtras().getInt("voiceCode");
-        String voiceTxt = intent.getExtras().getString("voiceTxt");
-		
+        VoiceApplication ACN = (VoiceApplication)getApplicationContext();        		
+		int voiceCode = ACN.getVoiceCode();
+        String voiceTxt = ACN.getVoicevoiceTxt();
         
-        //voiceCode = 10; // test
-        voiceTxt = "안녕하세요";
+        voiceCode = 1;
+        voiceTxt = "dsss";
         
-        // voiceCode 
+        
+        // 기 저장된 파일 
         if(voiceCode > 0){
+        	
+        	cursor = dbhandler.selectFileName(voiceCode);
+            if (cursor.getCount() == 0) {
+            	Log.e(TAG, "selectFileName bad");
+            	//nothing
+            } else {         
+            	
+                fileName = cursor.getString(cursor.getColumnIndex("fileName"));
+                Log.e(TAG, "selectFileName :" + fileName);
+            }
+
+            cursor.close();                
+                 	
+        	
         	
         }else{
 
         	// mp3 file Setting / insert voice Data
         	fileDownload = new FileDownload();
-            String fileName = fileDownload.startDownload(voiceTxt);
+            fileName = fileDownload.startDownload(voiceTxt);
             
- //           DBHandler dbHandler = DBHandler.open(this);
- //           voiceCode = dbHandler.insert(car_name);
+            // 초성 가져오기''
             
-//            voiceCode = 
+            voiceCode = (int) dbhandler.insertVoiceData(voiceTxt, " ", fileName, 0);
             
+        	cursor = dbhandler.selectFileName(voiceCode);
+            if (cursor.getCount() == 0) {
+            	Log.e(TAG, "selectFileName bad");
+            	//nothing
+            } else {         
+            	
+                fileName = cursor.getString(cursor.getColumnIndex("fileName"));
+                Log.e(TAG, "selectFileName :" + fileName);
+            }
+
+            cursor.close();                
             
         }
 
-        fileName = "120622202530.mp3";
         // get filePath
-        mp3Path = getMp3Path(voiceCode);
+        //mp3Path = getMp3Path(voiceCode);
 
         mp3Path = filePath + "/" + fileName; //test
         

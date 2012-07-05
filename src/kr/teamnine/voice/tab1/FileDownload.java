@@ -46,7 +46,7 @@ public class FileDownload {
 		int	m_fileSize	= 0;	// 3MB
 		int	nStatusCode	= 0;
 		
-		System.out.println(txt);
+		
 		
 		try {
 			

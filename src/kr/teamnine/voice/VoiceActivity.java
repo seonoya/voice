@@ -122,7 +122,8 @@ public class VoiceActivity extends TabActivity {
     
     public void mp3Copy(){
 		File f;
-        File folder = new File("/mnt/sdcard/voice/mp3/");
+        File folder = new File("/mnt/sdcard/voice");
+        
         if(folder.exists()){
         	Log.e(TAG, "MP3 exists!!!");
         	
@@ -131,6 +132,7 @@ public class VoiceActivity extends TabActivity {
         	try{
 
                 folder.mkdir();
+                            
         		InputStream is;
         		
         		AssetManager am = this.getResources().getAssets();        		
@@ -139,11 +141,11 @@ public class VoiceActivity extends TabActivity {
         		for(int i = 0; i < list.length; i++){
         			if(list[i].toLowerCase().endsWith(".mp3")){
             			
-            			System.out.println("yes:" + list[i].toString() );
             			is = am.open(list[i]);
             			
             			f = new File("/mnt/sdcard/voice/" + list[i]);
         				f.createNewFile();
+        				Log.e(TAG, "folder:::"+ f.getPath().toString());    
         				
         				long fileSize = is.available();
         				
@@ -163,7 +165,7 @@ public class VoiceActivity extends TabActivity {
         		}
         		
         	}catch( IOException e){
-        		Log.e(TAG,e.toString());
+        		Log.e(TAG, ""+e.toString());
         	}        	
         	
         }
