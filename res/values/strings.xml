@@ -16,5 +16,6 @@
 	<string name="error_message">노트를 가져오지 못했습니다.</string>
 	<string name="title_voiceList">보이스 목록</string>
 	<string name="title_voice_insert">보이스 추가</string>
+	<string name="title_manaul">사용설명서</string>
     
 </resources>
