@@ -43,8 +43,9 @@ public class NotePadMain extends ActivityGroup {
     			
     			finish();
     		}else{
-    			
-    			setContentView(history.get(history.size() - 1));
+    			View view = history.get(history.size() - 1);
+    			view.onWindowFocusChanged(true);
+    			setContentView(view);
     		}
     	}else{
     		
