@@ -21,6 +21,7 @@ import android.widget.AdapterView.OnItemClickListener;
 public class NotePadList extends ActivityGroup implements OnClickListener {
 	/** Called when the activity is first created. */
 	private SimpleCursorAdapter cursorAdapter;
+    private Cursor mNotesCursor;	
 	ListView noteList;
 
 	@Override
@@ -33,22 +34,12 @@ public class NotePadList extends ActivityGroup implements OnClickListener {
 
 		noteList = (ListView) findViewById(R.id.noteList);
 
-        DBHandler dbhandler = DBHandler.open(this);
-    	Cursor cursor = dbhandler.selectNoteList();
-        startManagingCursor(cursor);
-        
-        String[] FROM = new String[]{"noteData", "date"};
-        int[] TO = new int[] { R.id.noteData, R.id.noteDate };
-        cursorAdapter = new SimpleCursorAdapter(this, R.layout.note_list_row, cursor, FROM, TO);
-        noteList.setAdapter(cursorAdapter);
-		
-
 		// 리스트뷰의 경계선을 노란색으로
 		noteList.setDivider(new ColorDrawable(Color.LTGRAY));
 		// 경계선의 굵기를 1px
 		noteList.setDividerHeight(1);
-
-		dbhandler.close();
+		
+		fillData();
 
 		noteList.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
@@ -56,9 +47,11 @@ public class NotePadList extends ActivityGroup implements OnClickListener {
 
         		Intent intent = new Intent(NotePadList.this, NotePadView.class);
 
+                Cursor c = mNotesCursor;
+        		
         		VoiceApplication ACN = (VoiceApplication)getApplicationContext();        		
-        	    ACN.setCateCode((int)arg3);
-
+        	    ACN.setNoteCode((int)arg3);
+        	    ACN.setNoteData(c.getString(c.getColumnIndexOrThrow("noteData")));
 
         		View view = NotePadMain.noteGroup.getLocalActivityManager()
         				.startActivity("NotePadView", intent
@@ -71,6 +64,19 @@ public class NotePadList extends ActivityGroup implements OnClickListener {
 
 	}
 
+	private void fillData() {
+        DBHandler dbhandler = DBHandler.open(this);
+        mNotesCursor = dbhandler.selectNoteList();
+        startManagingCursor(mNotesCursor);
+        
+        String[] FROM = new String[]{"noteData", "date"};
+        int[] TO = new int[] { R.id.noteData, R.id.noteDate };
+        cursorAdapter = new SimpleCursorAdapter(this, R.layout.note_list_row, mNotesCursor, FROM, TO);
+        noteList.setAdapter(cursorAdapter);
+
+		dbhandler.close();		
+	}
+	
 	public void onClick(View v) {
 		int id = v.getId();
 
@@ -85,6 +91,10 @@ public class NotePadList extends ActivityGroup implements OnClickListener {
 		
 		Intent intent = new Intent(this, NotePadView.class);
 		
+		VoiceApplication ACN = (VoiceApplication)getApplicationContext();        		
+	    ACN.setNoteCode(0);
+	    ACN.setNoteData(null);
+		
 		View view = NotePadMain.noteGroup.getLocalActivityManager()
 				.startActivity("NotePadView", intent
 				.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
@@ -94,6 +104,14 @@ public class NotePadList extends ActivityGroup implements OnClickListener {
 	}
 	
 	
+	
+    @Override
+    protected void onResume() {
+        super.onResume();
+        System.out.println("fillData();");
+        fillData();
+    }
+
 	
 	
 	

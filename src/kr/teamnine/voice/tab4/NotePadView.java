@@ -83,14 +83,12 @@ public class NotePadView extends Activity implements OnClickListener {
     	parent.onBackPressed();
 	}
     
-    
-
 
     private void saveState() {
         String body = mBodyText.getText().toString();
 
-        if (body.length() > 0l) {
-            if (noteData.length() == 0) {
+        if (body.length() > 0) {
+            if (noteData == null) {
             	//  생성
             	SimpleDateFormat dateFormat = new SimpleDateFormat("yy/MM/dd HH:mm:ss");  
             	Date date = new Date(System.currentTimeMillis()); 
@@ -104,7 +102,7 @@ public class NotePadView extends Activity implements OnClickListener {
 				}
         		dbhandler.close();
 
-            } else if (noteData.equals(body)) {
+            } else if (!noteData.equals(body)) {
             	// 업데이트
             	SimpleDateFormat dateFormat = new SimpleDateFormat("yy/MM/dd HH:mm:ss");  
             	Date date = new Date(System.currentTimeMillis()); 
