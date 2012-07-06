@@ -84,6 +84,10 @@
         <activity
             android:name=".tab4.NotePadMain"
             android:theme="@android:style/Theme.NoTitleBar" />
+        <activity
+            android:name=".tab4.NotePadView"
+            android:theme="@android:style/Theme.NoTitleBar" />
+        
     </application>
 
 </manifest>

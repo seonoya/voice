@@ -55,12 +55,12 @@ public class NotePadList extends ActivityGroup implements OnClickListener {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
 
-        		Intent intent = new Intent(NotePadList.this, NotePadMain.class);
+        		Intent intent = new Intent(NotePadList.this, NotePadView.class);
         		intent.putExtra("cateCode", arg3);
         		
         		System.out.println("=============="+noteList.getId());
         		View view = NotePadMain.noteGroup.getLocalActivityManager()
-        				.startActivity("VoiceListView", intent
+        				.startActivity("NotePadView", intent
         				.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
         		
         		NotePadMain.noteGroup.replaceView(view);	
@@ -82,10 +82,10 @@ public class NotePadList extends ActivityGroup implements OnClickListener {
 	public void cmdAddNote() {
 		System.out.println("버튼클릭");
 		
-		Intent intent = new Intent(this, NotePadMain.class);
+		Intent intent = new Intent(this, NotePadView.class);
 		
 		View view = NotePadMain.noteGroup.getLocalActivityManager()
-				.startActivity("VoiceListView", intent
+				.startActivity("NotePadView", intent
 				.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
 		
 		NotePadMain.noteGroup.replaceView(view);	

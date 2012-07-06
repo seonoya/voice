@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="app_name">포켓보이스</string>
     <string name="savePath">/data/data/kr.teamnine.voice/mp3/</string>
-
     <string name="title_cateList">카테고리 목록</string>
     <string name="title_noteList">간편 메모장</string>
+    <string name="title_noteView">메모입력</string>
     <string name="title_setting">포켓보이스 설정 </string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_note_pad_view">NotePadView</string>
+    <string name="title_create">새 메모장</string>
+    <string name="title_edit">메모 수정</string>
+	<string name="error_title">에러</string>
+	<string name="error_message">노트를 가져오지 못했습니다.</string>
     
 </resources>
