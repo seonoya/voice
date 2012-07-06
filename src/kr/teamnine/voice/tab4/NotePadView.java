@@ -1,6 +1,11 @@
 package kr.teamnine.voice.tab4;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import kr.teamnine.voice.DBHandler;
 import kr.teamnine.voice.R;
+import kr.teamnine.voice.VoiceApplication;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -13,8 +18,8 @@ import android.content.Context;
 public class NotePadView extends Activity implements OnClickListener {
 
     private EditText mBodyText;
-    private Long mRowId;
-
+    private int noteCode;
+    private String noteData;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -23,24 +28,25 @@ public class NotePadView extends Activity implements OnClickListener {
         
         mBodyText = (EditText) findViewById(R.id.noteDataView);
 
-        
-//        mRowId = (savedInstanceState == null) ? null :
-//            (Long) savedInstanceState.getSerializable(NotesDbAdapter.KEY_ROWID);
-//		if (mRowId == null) {
-//			Bundle extras = getIntent().getExtras();
-//			mRowId = extras != null ? extras.getLong(NotesDbAdapter.KEY_ROWID)
-//									: null;
-//		}
+        //request Data
+		VoiceApplication ACN = (VoiceApplication)getApplicationContext();
+		noteData = ACN.getNoteData();
+		
+		if (noteData == null) {
+			noteCode  = 0;
+			mBodyText.setText(null);
+		} else {
+			noteCode = ACN.getNoteCode();
+			mBodyText.setText(ACN.getNoteData());
+		}
 
-		populateFields();
-    
+
         Button resetButton = (Button) findViewById(R.id.noteResetButton);
         Button backButton =  (Button) findViewById(R.id.noteBackButton);
         
         resetButton.setOnClickListener(this);
         backButton.setOnClickListener(this);
 
-		
     }
     
 	public void onClick(View v) {
@@ -48,11 +54,16 @@ public class NotePadView extends Activity implements OnClickListener {
 
 		// close Note
 		if (id == R.id.noteBackButton) {
-			cmdCloseNote();
+			
+	    	EditText editText = (EditText) findViewById(R.id.noteDataView);
+	    	InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+	    	imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
 
+			cmdCloseNote();
         	//reset btn
 		} else if(id == R.id.noteResetButton){
-			mBodyText.setText("");
+			mBodyText.setText(null);
+			noteCode = 0;
     	}
 
 	}
@@ -60,62 +71,55 @@ public class NotePadView extends Activity implements OnClickListener {
     
     @Override
     public void onBackPressed(){
-    	EditText editText = (EditText) findViewById(R.id.noteDataView);
-    	InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-    	imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
-    	
     	cmdCloseNote();
     }
 
 	
 	public void cmdCloseNote() {
+		
+		saveState();
+		
     	NotePadMain parent = ((NotePadMain)getParent()); 
     	parent.onBackPressed();
 	}
     
     
-    
-    private void populateFields() {
-        if (mRowId != null) {
-//            Cursor note = mDbHelper.fetchNote(mRowId);
-//            startManagingCursor(note);
-//            mBodyText.setText(note.getString(
-//                    note.getColumnIndexOrThrow(NotesDbAdapter.KEY_BODY)));
-        }
-    }
 
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        saveState();
-//        outState.putSerializable(NotesDbAdapter.KEY_ROWID, mRowId);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        saveState();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        populateFields();
-    }
 
     private void saveState() {
         String body = mBodyText.getText().toString();
 
-        if (mRowId == null) {
-        	//  생
-//            long id = mDbHelper.createNote(title, body);
-//            if (id > 0) {
-//                mRowId = id;
-//            }
-        } else {
-        	// 업데이
-//            mDbHelper.updateNote(mRowId, title, body);
-        }
+        if (body.length() > 0l) {
+            if (noteData.length() == 0) {
+            	//  생성
+            	SimpleDateFormat dateFormat = new SimpleDateFormat("yy/MM/dd HH:mm:ss");  
+            	Date date = new Date(System.currentTimeMillis()); 
+            	String formattedDate = dateFormat.format(date);
+            	
+            	DBHandler dbhandler = DBHandler.open(this);
+            	if (dbhandler.insertNoteData(body, formattedDate)) {
+					System.out.println("생성 완료");
+				} else {
+					System.out.println("생성 오류");
+				}
+        		dbhandler.close();
+
+            } else if (noteData.equals(body)) {
+            	// 업데이트
+            	SimpleDateFormat dateFormat = new SimpleDateFormat("yy/MM/dd HH:mm:ss");  
+            	Date date = new Date(System.currentTimeMillis()); 
+            	String formattedDate = dateFormat.format(date);   
+            	
+            	DBHandler dbhandler = DBHandler.open(this);
+            	if (dbhandler.updateNoteData(noteCode, body, formattedDate)) {
+					System.out.println("갱신 완료");
+				} else {
+					System.out.println("갱신 오류");
+				}
+        		dbhandler.close();
+            }
+		}
+        
     }
 
 

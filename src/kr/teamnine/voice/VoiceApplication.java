@@ -10,7 +10,26 @@ public class VoiceApplication extends Application{
 	private String voicePath;
 	private String voiceFileName;
 	private boolean onStart;
-	
+
+	private int noteCode;
+	public int getNoteCode() {
+		return noteCode;
+	}
+
+	public void setNoteCode(int noteCode) {
+		this.noteCode = noteCode;
+	}
+
+	public String getNoteData() {
+		return noteData;
+	}
+
+	public void setNoteData(String noteData) {
+		this.noteData = noteData;
+	}
+
+	private String noteData;
+
 	
 //	@Override
 //	public void onCreate(){
