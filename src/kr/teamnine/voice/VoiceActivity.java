@@ -89,10 +89,11 @@ public class VoiceActivity extends TabActivity {
         File folder = new File("/data/data/kr.teamnine.voice/databases/");
         
         
-        if(f.exists()){
+        if(!f.exists()){
         	Log.e(TAG, "exists!!!");
         	
         }else{
+        	Log.e(TAG, "create DB");
         	try {
         		folder.mkdir();
         		AssetManager am = this.getResources().getAssets();        		
@@ -122,9 +123,9 @@ public class VoiceActivity extends TabActivity {
     
     public void mp3Copy(){
 		File f;
-        File folder = new File("/mnt/sdcard/voice");
+        File folder = new File("/mnt/sdcard/voice/");
         
-        if(folder.exists()){
+        if(!folder.exists()){
         	Log.e(TAG, "MP3 exists!!!");
         	
         }else{
@@ -157,7 +158,9 @@ public class VoiceActivity extends TabActivity {
         				
         				FileOutputStream fos = new FileOutputStream(f);
         				fos.write(tempData);
-        				fos.close();        			
+        				fos.close();        	
+        				
+        				Log.e(TAG, "folder:::"+ f.exists());    
         			}else{
         				//System.out.println("no:" + list[i].toString() );
         			}

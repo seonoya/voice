@@ -4,6 +4,8 @@ package kr.teamnine.voice.tab1;
 import java.io.File;
 import java.io.IOException;
 
+
+
 import kr.teamnine.voice.DBHandler;
 import kr.teamnine.voice.R;
 import kr.teamnine.voice.VoiceApplication;
@@ -64,6 +66,7 @@ public class VoicePlayer extends ActivityGroup implements OnClickListener{
 		Button btnViewManaul	= (Button)findViewById(R.id.viewManaul);
 		
 		btnPlay.setOnClickListener(this);
+		btnStop.setOnClickListener(this);
 		btnInsertVoice.setOnClickListener(this);
 		btnSearchVoice.setOnClickListener(this);
 		btnInsertNotePad.setOnClickListener(this);
@@ -77,11 +80,12 @@ public class VoicePlayer extends ActivityGroup implements OnClickListener{
 		
 
         // recent voice
+        //recentList = (ListView) findViewById(R.id.horizontalScrollView1);
         
     	Cursor cursor = dbhandler.selectRecntVoice();
         startManagingCursor(cursor);
         
-        String[] FROM = new String[]{"_id","voiceData"};
+        String[] FROM = new String[]{"_id", "voiceData", "fileName"};
         int[] TO = new int[]{R.id.code, R.id.recentBtn};
         cursorAdapter = new SimpleCursorAdapter(this, R.layout.tab1_recent_list, cursor, FROM, TO );
         recentList.setAdapter(cursorAdapter);
@@ -94,7 +98,7 @@ public class VoicePlayer extends ActivityGroup implements OnClickListener{
 		int voiceCode = ACN.getVoiceCode();
         String voiceTxt = ACN.getVoicevoiceTxt();
         
-        voiceCode = 1;
+        voiceCode = 14;
         voiceTxt = "dsss";
         
         
@@ -105,8 +109,9 @@ public class VoicePlayer extends ActivityGroup implements OnClickListener{
             if (cursor.getCount() == 0) {
             	Log.e(TAG, "selectFileName bad");
             	//nothing
-            } else {         
+            } else {    
             	
+                cursor.moveToFirst();
                 fileName = cursor.getString(cursor.getColumnIndex("fileName"));
                 Log.e(TAG, "selectFileName :" + fileName);
             }
@@ -144,43 +149,11 @@ public class VoicePlayer extends ActivityGroup implements OnClickListener{
 
         mp3Path = filePath + "/" + fileName; //test
         
+        File temp = new File(mp3Path);
+        Log.e(TAG, temp.getPath() + temp.exists());
         // auto Play
-        if(autoPlay)playMp3(filePath + fileName);        
+        if(autoPlay)playMp3();        
         
-        
-		//getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.tab2titlebar);
-        
-        
-        // data get (category list)
-//        DBHandler dbhandler = DBHandler.open(this);
-//    	Cursor cursor = dbhandler.selectAll();
-//        startManagingCursor(cursor);
-//        
-//        String[] FROM = new String[]{"_id","cateName"};
-//        int[] TO = new int[]{R.id.code, R.id.list};
-//        cursorAdapter = new SimpleCursorAdapter(this, R.layout.tab2row, cursor, FROM, TO );
-//        categoryList.setAdapter(cursorAdapter);
-//        dbhandler.close();
-//        
-        
-//        categoryList.setOnItemClickListener(new OnItemClickListener() {
-//       	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3){
-//        		System.out.println("arg0" + arg0);
-//        		System.out.println("arg1" + arg1);
-//        		System.out.println("arg2" + arg2);
-//        		System.out.println("arg3" + arg3);
-//        		Intent intent = new Intent(VoicePlayer.this, VoiceListView.class);
-//        		intent.putExtra("cateCode", arg3);
-//        		//System.out.println(ListMain);
-//        		View view = VoicePlayer.playerGroup.getLocalActivityManager()
-//        				.startActivity("VoiceListView", intent
-//        				.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
-//        		
-//        		VoicePlayer.playerGroup.replaceView(view);		
-//
-//        	}
-//		});
-
         
         
     } 
@@ -190,7 +163,7 @@ public class VoicePlayer extends ActivityGroup implements OnClickListener{
     	
     	//play btn
     	if(id == R.id.mp3play){
-    		playMp3(mp3Path);
+    		playMp3();
     	
     	//stop btn
     	}else if(id == R.id.mp3stop){
@@ -236,12 +209,8 @@ public class VoicePlayer extends ActivityGroup implements OnClickListener{
     
     
     // play mp3
-    public void playMp3(String mp3Path){
+    public void playMp3(){
     	try{
-    		
-    		File file = new File("mp3Path");
-    		System.out.println(file.exists());
-    		
     		
     		if(vibration)onVibrate();
     		mp = new MediaPlayer();

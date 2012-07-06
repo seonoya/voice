@@ -93,10 +93,9 @@ public class DBHandler {
 
     // recent voice
     public Cursor selectRecntVoice(){
-    	String param[] = {"voiceCode"};
-    	Cursor cursor = db.rawQuery(" SELECT voiceCode as _id , fileName " +
-    								" FROM tVoiceData as A join tHistoryData as B on a.voiceCode = b.voiceCode " +
-    								" order by b.date desc limit 0,10 ", param);
+    	Cursor cursor = db.rawQuery(" SELECT A.voiceCode as _id , A.voiceData,  A.fileName " +
+    								" FROM tVoiceData as A join tHistoryData as B on A.voiceCode = B.voiceCode " +
+    								" order by B.date desc limit 0,10 ", null);
     	return cursor;
     }
     
@@ -104,8 +103,9 @@ public class DBHandler {
     
     // voice Select
     public Cursor selectFileName(int voiceCode){
-    	String param[] = {"voiceCode"};
-    	Cursor cursor = db.rawQuery("SELECT voiceCode as _id , fileName FROM tVoiceData where voiceCode = ? ", param);
+    	String param[] = {""+voiceCode+""};
+    	Cursor cursor = db.rawQuery("SELECT voiceCode as _id , voiceData, fileName FROM tVoiceData where voiceCode = ? LIMIT 0,1 ", param);
+    	System.out.println(param[0]);
     	return cursor;
     }
     
