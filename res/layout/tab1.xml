@@ -66,6 +66,32 @@
             android:layout_height="wrap_content"
             android:text="volume_display" />
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+		<HorizontalScrollView  
+		        android:id="@+id/my_scrollview"
+		        android:layout_width="fill_parent"
+		        android:layout_height="fill_parent"  
+		        android:scrollbars="none">
+		 
+		       <LinearLayout android:id="@+id/my_layout"
+		                    android:layout_width="wrap_content"
+		                    android:layout_height="fill_parent"
+		                    android:orientation="horizontal">
+		               <ListView android:id="@android:id/list"
+		                         android:layout_width="wrap_content"
+		                         android:layout_height="wrap_content"
+		                         android:fadingEdge="none"
+		               />
+		        </LinearLayout>
+		</HorizontalScrollView>
+
+
+    </LinearLayout>
     
     <LinearLayout
         android:layout_width="fill_parent"

@@ -98,10 +98,11 @@ public class VoiceActivity extends TabActivity {
         File folder = new File("/data/data/kr.teamnine.voice/databases/");
         
         
-        if(f.exists()){
+        if(!f.exists()){
         	Log.e(TAG, "exists!!!");
         	
         }else{
+        	Log.e(TAG, "create DB");
         	try {
         		folder.mkdir();
         		AssetManager am = this.getResources().getAssets();        		
@@ -131,8 +132,9 @@ public class VoiceActivity extends TabActivity {
     
     public void mp3Copy(){
 		File f;
-        File folder = new File("/mnt/sdcard/voice/mp3/");
-        if(folder.exists()){
+        File folder = new File("/mnt/sdcard/voice/");
+        
+        if(!folder.exists()){
         	Log.e(TAG, "MP3 exists!!!");
         	
         }else{
@@ -140,6 +142,7 @@ public class VoiceActivity extends TabActivity {
         	try{
 
                 folder.mkdir();
+                            
         		InputStream is;
         		
         		AssetManager am = this.getResources().getAssets();        		
@@ -148,11 +151,11 @@ public class VoiceActivity extends TabActivity {
         		for(int i = 0; i < list.length; i++){
         			if(list[i].toLowerCase().endsWith(".mp3")){
             			
-            			System.out.println("yes:" + list[i].toString() );
             			is = am.open(list[i]);
             			
             			f = new File("/mnt/sdcard/voice/" + list[i]);
         				f.createNewFile();
+        				Log.e(TAG, "folder:::"+ f.getPath().toString());    
         				
         				long fileSize = is.available();
         				
@@ -164,7 +167,9 @@ public class VoiceActivity extends TabActivity {
         				
         				FileOutputStream fos = new FileOutputStream(f);
         				fos.write(tempData);
-        				fos.close();        			
+        				fos.close();        	
+        				
+        				Log.e(TAG, "folder:::"+ f.exists());    
         			}else{
         				//System.out.println("no:" + list[i].toString() );
         			}
@@ -172,7 +177,7 @@ public class VoiceActivity extends TabActivity {
         		}
         		
         	}catch( IOException e){
-        		Log.e(TAG,e.toString());
+        		Log.e(TAG, ""+e.toString());
         	}        	
         	
         }

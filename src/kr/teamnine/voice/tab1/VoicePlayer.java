@@ -4,8 +4,11 @@ package kr.teamnine.voice.tab1;
 import java.io.File;
 import java.io.IOException;
 
+
+
 import kr.teamnine.voice.DBHandler;
 import kr.teamnine.voice.R;
+import kr.teamnine.voice.VoiceApplication;
 import kr.teamnine.voice.tab2.CategoryList;
 import kr.teamnine.voice.tab2.ListMain;
 import kr.teamnine.voice.tab2.VoiceListView;
@@ -27,6 +30,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TabHost;
 
@@ -37,17 +41,18 @@ public class VoicePlayer extends ActivityGroup implements OnClickListener{
 
     private boolean autoPlay = false;
     private boolean vibration = false;
-    private ListView categoryList;
     private FileDownload fileDownload;
 	private SimpleCursorAdapter cursorAdapter;
     public MediaPlayer mp;
     public String filePath = "/mnt/sdcard/voice";
-    public String fileName = "120530144241.mp3";
+    public String fileName = "";
     public String mp3Path = "";
+    public ListView recentList;
+
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
+        DBHandler dbhandler = DBHandler.open(this);
         // TODO Auto-generated method stub
     	super.onCreate(savedInstanceState);
 		setContentView(R.layout.tab1);
@@ -58,7 +63,7 @@ public class VoicePlayer extends ActivityGroup implements OnClickListener{
 		Button btnInsertVoice	= (Button)findViewById(R.id.insertVoice);
 		Button btnSearchVoice	= (Button)findViewById(R.id.searchVoice);
 		Button btnInsertNotePad = (Button)findViewById(R.id.insertNotePad);
-		Button btnViewManaul	 = (Button)findViewById(R.id.viewManaul);
+		Button btnViewManaul	= (Button)findViewById(R.id.viewManaul);
 		
 		btnPlay.setOnClickListener(this);
 		btnStop.setOnClickListener(this);
@@ -73,76 +78,82 @@ public class VoicePlayer extends ActivityGroup implements OnClickListener{
         autoPlay	=  pref.getBoolean("autoPlay", false);
         vibration	=  pref.getBoolean("vibration", false);
 		
+
+        // recent voice
+        //recentList = (ListView) findViewById(R.id.horizontalScrollView1);
+        
+    	Cursor cursor = dbhandler.selectRecntVoice();
+        startManagingCursor(cursor);
+        
+        String[] FROM = new String[]{"_id", "voiceData", "fileName"};
+        int[] TO = new int[]{R.id.code, R.id.recentBtn};
+        cursorAdapter = new SimpleCursorAdapter(this, R.layout.tab1_recent_list, cursor, FROM, TO );
+        recentList.setAdapter(cursorAdapter);
+
+        
+        
         
         //request Data
-        Intent intent = getIntent();
-        int voiceCode = intent.getExtras().getInt("voiceCode");
-        String voiceTxt = intent.getExtras().getString("voiceTxt");
-		
+        VoiceApplication ACN = (VoiceApplication)getApplicationContext();        		
+		int voiceCode = ACN.getVoiceCode();
+        String voiceTxt = ACN.getVoicevoiceTxt();
         
-        //voiceCode = 10; // test
-        voiceTxt = "안녕하세요";
+        voiceCode = 14;
+        voiceTxt = "dsss";
         
-        // voiceCode 
+        
+        // 기 저장된 파일 
         if(voiceCode > 0){
+        	
+        	cursor = dbhandler.selectFileName(voiceCode);
+            if (cursor.getCount() == 0) {
+            	Log.e(TAG, "selectFileName bad");
+            	//nothing
+            } else {    
+            	
+                cursor.moveToFirst();
+                fileName = cursor.getString(cursor.getColumnIndex("fileName"));
+                Log.e(TAG, "selectFileName :" + fileName);
+            }
+
+            cursor.close();                
+                 	
+        	
         	
         }else{
 
         	// mp3 file Setting / insert voice Data
         	fileDownload = new FileDownload();
-            String fileName = fileDownload.startDownload(voiceTxt);
+            fileName = fileDownload.startDownload(voiceTxt);
             
- //           DBHandler dbHandler = DBHandler.open(this);
- //           voiceCode = dbHandler.insert(car_name);
+            // 초성 가져오기''
             
-//            voiceCode = 
+            voiceCode = (int) dbhandler.insertVoiceData(voiceTxt, " ", fileName, 0);
             
+        	cursor = dbhandler.selectFileName(voiceCode);
+            if (cursor.getCount() == 0) {
+            	Log.e(TAG, "selectFileName bad");
+            	//nothing
+            } else {         
+            	
+                fileName = cursor.getString(cursor.getColumnIndex("fileName"));
+                Log.e(TAG, "selectFileName :" + fileName);
+            }
+
+            cursor.close();                
             
         }
 
-        fileName = "120622202530.mp3";
         // get filePath
-        mp3Path = getMp3Path(voiceCode);
+        //mp3Path = getMp3Path(voiceCode);
 
         mp3Path = filePath + "/" + fileName; //test
         
+        File temp = new File(mp3Path);
+        Log.e(TAG, temp.getPath() + temp.exists());
         // auto Play
-        if(autoPlay)playMp3(filePath + fileName);        
+        if(autoPlay)playMp3();        
         
-        
-		//getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.tab2titlebar);
-        
-        
-        // data get (category list)
-//        DBHandler dbhandler = DBHandler.open(this);
-//    	Cursor cursor = dbhandler.selectAll();
-//        startManagingCursor(cursor);
-//        
-//        String[] FROM = new String[]{"_id","cateName"};
-//        int[] TO = new int[]{R.id.code, R.id.list};
-//        cursorAdapter = new SimpleCursorAdapter(this, R.layout.tab2row, cursor, FROM, TO );
-//        categoryList.setAdapter(cursorAdapter);
-//        dbhandler.close();
-//        
-        
-//        categoryList.setOnItemClickListener(new OnItemClickListener() {
-//       	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3){
-//        		System.out.println("arg0" + arg0);
-//        		System.out.println("arg1" + arg1);
-//        		System.out.println("arg2" + arg2);
-//        		System.out.println("arg3" + arg3);
-//        		Intent intent = new Intent(VoicePlayer.this, VoiceListView.class);
-//        		intent.putExtra("cateCode", arg3);
-//        		//System.out.println(ListMain);
-//        		View view = VoicePlayer.playerGroup.getLocalActivityManager()
-//        				.startActivity("VoiceListView", intent
-//        				.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
-//        		
-//        		VoicePlayer.playerGroup.replaceView(view);		
-//
-//        	}
-//		});
-
         
         
     } 
@@ -152,7 +163,7 @@ public class VoicePlayer extends ActivityGroup implements OnClickListener{
     	
     	//play btn
     	if(id == R.id.mp3play){
-    		playMp3(mp3Path);
+    		playMp3();
     	
     	//stop btn
     	}else if(id == R.id.mp3stop){
@@ -198,12 +209,8 @@ public class VoicePlayer extends ActivityGroup implements OnClickListener{
     
     
     // play mp3
-    public void playMp3(String mp3Path){
+    public void playMp3(){
     	try{
-    		
-    		File file = new File("mp3Path");
-    		System.out.println(file.exists());
-    		
     		
     		if(vibration)onVibrate();
     		mp = new MediaPlayer();

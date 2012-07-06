@@ -6,6 +6,8 @@ public class VoiceApplication extends Application{
 
 	private int voiceCode;
 	private String voiceTxt;
+	private String voicePath;
+	private String voiceFileName;
 	
 	
 //	@Override
@@ -38,6 +40,21 @@ public class VoiceApplication extends Application{
 		return this.voiceTxt;
 	}
 	
+	public void setVoicePath(String voicePath){
+		this.voicePath = voicePath;
+	}
+
+	public String getVoicePath(){
+		return this.voicePath;
+	}
+	
+	public void setVoiceFileName(String voiceFileName){
+		this.voiceFileName = voiceFileName;
+	}
+
+	public String getVoiceFileName(){
+		return this.voiceFileName;
+	}	
 	
 	
 }
