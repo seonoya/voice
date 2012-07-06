@@ -2,14 +2,17 @@ package kr.teamnine.voice.tab3;
 
 import kr.teamnine.voice.DBHandler;
 import kr.teamnine.voice.R;
+import kr.teamnine.voice.VoiceApplication;
 import android.app.Activity;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 
 
@@ -24,7 +27,7 @@ public class HistoryList extends Activity {
         // TODO Auto-generated method stub
     	
         super.onCreate(savedInstanceState);
-		setContentView(R.layout.tab3);
+		setContentView(R.layout.tab3_1);
 
 		
 		System.out.println("요긴 히스토리리스ㅡㅌ");
@@ -53,7 +56,14 @@ public class HistoryList extends Activity {
         
         voiceList.setOnItemClickListener(new OnItemClickListener() {
         	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3){
-        		System.out.println(arg3);
+        		
+        	    VoiceApplication ACN = (VoiceApplication)getApplicationContext();        		
+        	    
+        	    ACN.setVoiceCode(Integer.parseInt(((TextView)arg1.findViewById(R.id.code)).getText().toString()));
+        		ACN.setVoiceTxt( ((TextView)arg1.findViewById(R.id.list)).getText().toString() );
+        		ACN.setOnStart(true);
+        		Log.e("", ACN.getVoiceCode() + "//" + ACN.getVoicevoiceTxt());
+        		FavoritesMain.favoritesGroup.moveVoicePlayer();        		
 
         	}
 		});

@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="4"
             android:layout_marginLeft="30dp"
-            android:background="@drawable/bar_button_tab1a" />
+            android:background="@drawable/bar_button_tab1" />        
         <Button
             android:id="@+id/goHistory"
             android:layout_width="80dp"
@@ -29,7 +29,7 @@
             android:layout_weight="4"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="30dp"
-            android:background="@drawable/bar_button_tab2"  />
+            android:background="@drawable/bar_button_tab2a"  />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

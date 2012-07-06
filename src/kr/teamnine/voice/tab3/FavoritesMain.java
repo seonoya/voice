@@ -2,9 +2,11 @@ package kr.teamnine.voice.tab3;
 
 import java.util.ArrayList;
 import android.app.ActivityGroup;
+import android.app.TabActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TabHost;
 import kr.teamnine.voice.R;
 import kr.teamnine.voice.tab3.FavoritesList;
 
@@ -63,4 +65,12 @@ public class FavoritesMain extends ActivityGroup {
 
     	return;
     }
+    
+    // move Voice Player
+    public void moveVoicePlayer(){
+    	TabActivity parentTabActivity = (TabActivity)getParent();
+    	TabHost tabHost = parentTabActivity.getTabHost();
+    	tabHost.setCurrentTabByTag("voicePlayerMain");
+    }
+    
 }

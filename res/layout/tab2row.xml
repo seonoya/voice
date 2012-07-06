@@ -14,5 +14,8 @@
         android:id="@+id/list"
         android:orientation="horizontal"    
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" />
+        android:layout_height="fill_parent"
+        android:textColor="#000000"
+        android:padding="5dp"
+        android:gravity="left|center_vertical" />
 </LinearLayout>

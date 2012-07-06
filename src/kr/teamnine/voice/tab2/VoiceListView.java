@@ -30,6 +30,21 @@ public class VoiceListView extends Activity {
         super.onCreate(savedInstanceState);
 		setContentView(R.layout.tab2);
 
+		init();
+        
+        
+
+    }
+    
+    @Override
+    protected void onResume () {
+    	
+    	super.onResume();
+    	init();
+    }
+    
+    public void init(){
+    	
         voiceList = (ListView) findViewById(R.id.categoryList);
 
         
@@ -63,12 +78,9 @@ public class VoiceListView extends Activity {
 
 
         	}
-		});
-        
-        
-
+		});    	
+    	
     }
-
     
     @Override
     public void onBackPressed(){
