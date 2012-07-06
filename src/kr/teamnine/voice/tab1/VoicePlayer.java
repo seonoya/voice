@@ -52,7 +52,6 @@ public class VoicePlayer extends ActivityGroup implements OnClickListener{
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        DBHandler dbhandler = DBHandler.open(this);
         // TODO Auto-generated method stub
     	super.onCreate(savedInstanceState);
 		setContentView(R.layout.tab1);
@@ -73,12 +72,22 @@ public class VoicePlayer extends ActivityGroup implements OnClickListener{
 		btnViewManaul.setOnClickListener(this);
 		
 		
-        // get setting Info
-        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
-        autoPlay	=  pref.getBoolean("autoPlay", false);
-        vibration	=  pref.getBoolean("vibration", false);
+
 		
 
+ 
+        
+    } 
+    
+    @Override
+    protected void onResume () {
+    	
+    	super.onResume();
+        DBHandler dbhandler = DBHandler.open(this);
+    	
+    	//환경설정 세팅
+    	setGlobalSetting();
+    	
         // recent voice
         //recentList = (ListView) findViewById(R.id.horizontalScrollView1);
         
@@ -88,7 +97,7 @@ public class VoicePlayer extends ActivityGroup implements OnClickListener{
         String[] FROM = new String[]{"_id", "voiceData", "fileName"};
         int[] TO = new int[]{R.id.code, R.id.recentBtn};
         cursorAdapter = new SimpleCursorAdapter(this, R.layout.tab1_recent_list, cursor, FROM, TO );
-        recentList.setAdapter(cursorAdapter);
+        //recentList.setAdapter(cursorAdapter);
 
         
         
@@ -98,10 +107,12 @@ public class VoicePlayer extends ActivityGroup implements OnClickListener{
 		int voiceCode = ACN.getVoiceCode();
         String voiceTxt = ACN.getVoicevoiceTxt();
         
-        voiceCode = 14;
-        voiceTxt = "dsss";
+        Log.e("시작",voiceCode +"//"+ voiceTxt);
+
+        if (voiceCode == 0)voiceCode = 1;
+        if (voiceTxt == "")voiceTxt="123";
         
-        
+        Log.e("시작",voiceCode +"//"+ voiceTxt);
         // 기 저장된 파일 
         if(voiceCode > 0){
         	
@@ -154,9 +165,19 @@ public class VoicePlayer extends ActivityGroup implements OnClickListener{
         // auto Play
         if(autoPlay)playMp3();        
         
-        
-        
-    } 
+            	
+    	
+    }
+    
+    
+    public void setGlobalSetting(){
+        // get setting Info
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
+        autoPlay	=  pref.getBoolean("autoPlay", false);
+        vibration	=  pref.getBoolean("vibration", false);    	
+    	
+    }
+    
     
     public void onClick(View v){
     	int id = v.getId();

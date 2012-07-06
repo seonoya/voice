@@ -50,7 +50,6 @@ public class CategoryList extends ActivityGroup {
         		Intent intent = new Intent(CategoryList.this, VoiceListView.class);
         		intent.putExtra("cateCode", arg3);
         		
-        		System.out.println("=============="+categoryList.getId());
         		View view = ListMain.listGroup.getLocalActivityManager()
         				.startActivity("VoiceListView", intent
         				.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
