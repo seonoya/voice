@@ -21,11 +21,11 @@ public class AppIntroActivity extends Activity {
 			@Override
 			public void handleMessage(Message msg) {
 				finish(); // 액티비티 종료
-				overridePendingTransition(0, 1);
+				overridePendingTransition(0, 0);
 			}
 		};
 
-		handler.sendEmptyMessageDelayed(0, 2000); // 2초후 종료시킴
+		handler.sendEmptyMessageDelayed(0, 1000); // 2초후 종료시킴
 
 	}
 

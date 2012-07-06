@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Voice</string>
+    <string name="app_name">포켓보이스</string>
     <string name="savePath">/data/data/kr.teamnine.voice/mp3/</string>
 
+    <string name="title_cateList">카테고리 목록</string>
+    <string name="title_noteList">간편 메모장</string>
+    <string name="title_setting">포켓보이스 설정 </string>
+    
 </resources>

@@ -18,7 +18,6 @@ public class NotePadMain extends ActivityGroup {
         // TODO Auto-generated method stub
 
     	super.onCreate(savedInstanceState);
-		setContentView(R.layout.tab2);
 		
 		history = new ArrayList<View>();
 		noteGroup = this;
