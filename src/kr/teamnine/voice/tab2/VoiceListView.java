@@ -34,11 +34,11 @@ public class VoiceListView extends Activity {
 
         
         //request Data
-        Intent intent = getIntent();
-        int cateCode = intent.getExtras().getInt("cateCode");
-        
+		VoiceApplication ACN = (VoiceApplication)getApplicationContext();        		
+	    int cateCode = 0;//ACN.getCateCode();
         
         // data get (category list)
+        System.out.println("category code" + cateCode);
         DBHandler dbhandler = DBHandler.open(this);
     	Cursor cursor = dbhandler.selectVoiceList(cateCode);
         startManagingCursor(cursor);

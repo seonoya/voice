@@ -5,6 +5,7 @@ import android.app.ActivityGroup;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -40,6 +41,8 @@ public class FavoritesList extends ActivityGroup  {
         int[] TO = new int[]{R.id.code, R.id.list};
         cursorAdapter = new SimpleCursorAdapter(this, R.layout.tab2row, cursor, FROM, TO );
         voiceList.setAdapter(cursorAdapter);
+        //Log.e("favoi cnt" , voiceList.getCount());
+        System.out.println("voie count"+voiceList.getCount());
         dbhandler.close();
         
         

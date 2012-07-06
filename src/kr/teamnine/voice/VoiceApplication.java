@@ -5,6 +5,7 @@ import android.app.Application;
 public class VoiceApplication extends Application{
 
 	private int voiceCode;
+	private int cateCode;
 	private String voiceTxt;
 	private String voicePath;
 	private String voiceFileName;
@@ -23,7 +24,14 @@ public class VoiceApplication extends Application{
 //	public void onTerminate(){
 //		super.onTerminate();
 //	}
-	
+
+	public void setCateCode(int cateCode){
+		this.cateCode = cateCode;
+	}
+
+	public int getCateCode(){
+		return this.cateCode;
+	}
 
 	public void setVoiceCode(int voiceCode){
 		this.voiceCode = voiceCode;
