@@ -168,6 +168,25 @@ public class DBHandler {
         return cursor;
     }
     
+    
+    public boolean insertNoteData(String noteData, String noteDate) {
+    	ContentValues values = new ContentValues();
+        values.put("noteData", noteData);        
+        values.put("date", noteDate);        
+
+        return db.insert("tNoteData", null, values) > 0;
+    } 
+    
+
+
+    public boolean updateNoteData(int code, String noteData, String noteDate) {
+        ContentValues values = new ContentValues();
+        values.put("noteData", noteData);
+        values.put("date", noteDate);
+
+        return db.update("tNoteData", values, "noteCode" + "=" + code, null) > 0;
+    }
+    
 
 //    public long insertNoteData(String note_data, String date) {
 //        ContentValues values = new ContentValues();

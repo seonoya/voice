@@ -2,6 +2,7 @@ package kr.teamnine.voice.tab4;
 
 import kr.teamnine.voice.DBHandler;
 import kr.teamnine.voice.R;
+import kr.teamnine.voice.VoiceApplication;
 
 import android.app.ActivityGroup;
 import android.content.Intent;
@@ -22,7 +23,6 @@ public class NotePadList extends ActivityGroup implements OnClickListener {
 	private SimpleCursorAdapter cursorAdapter;
 	ListView noteList;
 
-
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -33,16 +33,15 @@ public class NotePadList extends ActivityGroup implements OnClickListener {
 
 		noteList = (ListView) findViewById(R.id.noteList);
 
-		// data get (category list)
-		DBHandler dbhandler = DBHandler.open(this);
-		Cursor cursor = dbhandler.selectNoteList();
-		startManagingCursor(cursor);
-
-		String[] FROM = new String[] { "noteData", "date" };
-		int[] TO = new int[] { R.id.noteData, R.id.noteDate };
-		cursorAdapter = new SimpleCursorAdapter(this, R.layout.note_list_row,
-				cursor, FROM, TO);
-		noteList.setAdapter(cursorAdapter);
+        DBHandler dbhandler = DBHandler.open(this);
+    	Cursor cursor = dbhandler.selectNoteList();
+        startManagingCursor(cursor);
+        
+        String[] FROM = new String[]{"noteData", "date"};
+        int[] TO = new int[] { R.id.noteData, R.id.noteDate };
+        cursorAdapter = new SimpleCursorAdapter(this, R.layout.note_list_row, cursor, FROM, TO);
+        noteList.setAdapter(cursorAdapter);
+		
 
 		// 리스트뷰의 경계선을 노란색으로
 		noteList.setDivider(new ColorDrawable(Color.LTGRAY));
@@ -56,9 +55,11 @@ public class NotePadList extends ActivityGroup implements OnClickListener {
 					long arg3) {
 
         		Intent intent = new Intent(NotePadList.this, NotePadView.class);
-        		intent.putExtra("cateCode", arg3);
-        		
-        		System.out.println("=============="+noteList.getId());
+
+        		VoiceApplication ACN = (VoiceApplication)getApplicationContext();        		
+        	    ACN.setCateCode((int)arg3);
+
+
         		View view = NotePadMain.noteGroup.getLocalActivityManager()
         				.startActivity("NotePadView", intent
         				.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
@@ -90,7 +91,10 @@ public class NotePadList extends ActivityGroup implements OnClickListener {
 		
 		NotePadMain.noteGroup.replaceView(view);	
 		
-		
 	}
-
+	
+	
+	
+	
+	
 }
