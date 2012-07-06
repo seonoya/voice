@@ -3,7 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="#f2f2f2"
-    android:gravity="right"
+    android:layout_marginTop="10dp"
     android:orientation="vertical" >
 
     <LinearLayout
@@ -49,10 +49,9 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="right"
         android:background="@drawable/img_player_display"
-        android:gravity="right"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:orientation="vertical" >
 
 	    <RelativeLayout
@@ -89,7 +88,11 @@
 	            android:id="@+id/textView1"
 	            android:layout_width="fill_parent"
 	            android:layout_height="174dp"
-	            android:text="TextView" />
+	            android:textSize="20dp"
+	            android:textColor="#000000"
+	            android:padding="20dp"
+	            android:gravity="center"
+	            android:text="안녕하세요" />
 		    
 	    </LinearLayout>
 			
@@ -121,11 +124,19 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal" >
 
-        <TextView
-            android:id="@+id/textView2222"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="volume_display" />
+        <HorizontalScrollView
+            android:id="@+id/horizontalScrollView1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="horizontal"
+                android:background="@drawable/img_player_history" >
+            </LinearLayout>
+        </HorizontalScrollView>
+
     </LinearLayout>
 
 
