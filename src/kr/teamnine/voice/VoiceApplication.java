@@ -5,9 +5,11 @@ import android.app.Application;
 public class VoiceApplication extends Application{
 
 	private int voiceCode;
+	private int cateCode;
 	private String voiceTxt;
 	private String voicePath;
 	private String voiceFileName;
+	private boolean onStart;
 	
 	
 //	@Override
@@ -22,7 +24,14 @@ public class VoiceApplication extends Application{
 //	public void onTerminate(){
 //		super.onTerminate();
 //	}
-	
+
+	public void setCateCode(int cateCode){
+		this.cateCode = cateCode;
+	}
+
+	public int getCateCode(){
+		return this.cateCode;
+	}
 
 	public void setVoiceCode(int voiceCode){
 		this.voiceCode = voiceCode;
@@ -55,6 +64,15 @@ public class VoiceApplication extends Application{
 	public String getVoiceFileName(){
 		return this.voiceFileName;
 	}	
+	
+	public void setOnStart(boolean onStart){
+		this.onStart = onStart;
+	}
+
+	public boolean getOnStart(){
+		return this.onStart;
+	}	
+	
 	
 	
 }

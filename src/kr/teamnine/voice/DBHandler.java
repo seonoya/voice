@@ -125,7 +125,7 @@ public class DBHandler {
     	if(cateCode == 0){
     		cursor = db.rawQuery("SELECT voiceCode as _id, voiceData from tVoiceData ",null);
     	}else{
-    		String param[] = {"cateCode"};
+    		String param[] = {""+cateCode+""};
     		cursor = db.rawQuery("SELECT voiceCode as _id, voiceData from tVoiceData where cateCode = ? ",param);
     	}
         

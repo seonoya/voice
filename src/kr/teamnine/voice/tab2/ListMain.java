@@ -2,9 +2,11 @@ package kr.teamnine.voice.tab2;
 
 import java.util.ArrayList;
 import android.app.ActivityGroup;
+import android.app.TabActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TabHost;
 import kr.teamnine.voice.tab2.CategoryList;
 
 
@@ -63,7 +65,9 @@ public class ListMain extends ActivityGroup {
     
     // move Voice Player
     public void moveVoicePlayer(){
-    	
+    	TabActivity parentTabActivity = (TabActivity)getParent();
+    	TabHost tabHost = parentTabActivity.getTabHost();
+    	tabHost.setCurrentTabByTag("voicePlayerMain");
     }
 
 }

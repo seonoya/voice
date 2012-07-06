@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -33,11 +34,11 @@ public class VoiceListView extends Activity {
 
         
         //request Data
-        Intent intent = getIntent();
-        int cateCode = intent.getExtras().getInt("cateCode");
-        
+		VoiceApplication ACN = (VoiceApplication)getApplicationContext();        		
+	    int cateCode = 0;//ACN.getCateCode();
         
         // data get (category list)
+        System.out.println("category code" + cateCode);
         DBHandler dbhandler = DBHandler.open(this);
     	Cursor cursor = dbhandler.selectVoiceList(cateCode);
         startManagingCursor(cursor);
@@ -53,12 +54,12 @@ public class VoiceListView extends Activity {
         	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3){
         		//View parentView = (View) arg0[arg3].getParent();
         	    VoiceApplication ACN = (VoiceApplication)getApplicationContext();        		
+        	    
+        	    ACN.setVoiceCode(Integer.parseInt(((TextView)arg1.findViewById(R.id.code)).getText().toString()));
+        		ACN.setVoiceTxt( ((TextView)arg1.findViewById(R.id.list)).getText().toString() );
+        		ACN.setOnStart(true);
         		
-        		ACN.setVoiceCode(((TextView)arg1.findViewById(R.id.code)).getId());
-        		ACN.setVoiceTxt(((TextView)arg1.findViewById(R.id.list)).getText().toString());
-        		System.out.println(((TextView)arg1.findViewById(R.id.code)).getId()+"//");		
-        		
-        		
+        		ListMain.listGroup.moveVoicePlayer();
 
 
         	}

@@ -1,6 +1,7 @@
 package kr.teamnine.voice.tab2;
 
 import kr.teamnine.voice.DBHandler;
+import kr.teamnine.voice.VoiceApplication;
 import android.app.ActivityGroup;
 import android.content.Intent;
 import android.database.Cursor;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 import kr.teamnine.voice.R;
 
@@ -48,10 +50,11 @@ public class CategoryList extends ActivityGroup {
         categoryList.setOnItemClickListener(new OnItemClickListener() {
         	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3){
         		Intent intent = new Intent(CategoryList.this, VoiceListView.class);
-        		intent.putExtra("cateCode", arg3);
         		
-        		System.out.println("=============="+categoryList.getId());
-        		View view = ListMain.listGroup.getLocalActivityManager()
+        		VoiceApplication ACN = (VoiceApplication)getApplicationContext();        		
+        	    ACN.setCateCode((int)arg3);
+
+        	    View view = ListMain.listGroup.getLocalActivityManager()
         				.startActivity("VoiceListView", intent
         				.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
         		
