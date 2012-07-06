@@ -8,6 +8,10 @@ import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
@@ -22,9 +26,12 @@ public class FileDownload {
 
 	//http://translate.google.co.kr/translate_tts?ie=UTF-8&q=문장&tl=ko&prew=input
 	String apiUrl = "http://translate.google.co.kr/translate_tts?ie=UTF-8&";
-	String tempFileName = "120530144241.mp3";
 	String filePath = "/mnt/sdcard/voice";
-	String fileName = "120530144241.mp3";
+	String tempFileName = "temp.mp3";
+	
+	
+	
+	
 
 	public final String TAG = "Ryu";
 	public FileDownload(){
@@ -36,7 +43,16 @@ public class FileDownload {
 
 	// 
 	public String startDownload(String txt){
-		System.out.println("test===>"+ txt);
+		Calendar ci = Calendar.getInstance();
+		SimpleDateFormat nowTime = new SimpleDateFormat("yyMMddHHmmss");
+		Date today = new Date();
+		
+		
+		String fileName = nowTime.format(today) + ".mp3";
+		tempFileName = fileName;
+		
+		Log.e(TAG,nowTime.format(today));
+		
 		File folder = new File(filePath);
         folder.mkdir();
         folder = null;
@@ -113,8 +129,10 @@ public class FileDownload {
 //            Log.e(TAG, "nTotalRead: " + nTotalRead);
             
             // temp파일로 받은후에 다운로드가 완료되면 진짜 파일이름으로 변경한다.
-            fileDown.renameTo(new File(filePath + "/" + fileName));
-            System.out.println(filePath + "/" + fileName);
+            Log.e("병신 유러손호 ",fileDown.getPath());
+            boolean fileTest = fileDown.renameTo(new File(filePath + "/" + fileName));
+            
+            System.out.println(filePath + "/" + fileName+"//"+ fileTest);
             System.out.println(fileDown.getName());
             fos.close();
             

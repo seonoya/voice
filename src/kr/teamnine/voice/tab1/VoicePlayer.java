@@ -9,11 +9,7 @@ import java.io.IOException;
 import kr.teamnine.voice.DBHandler;
 import kr.teamnine.voice.R;
 import kr.teamnine.voice.VoiceApplication;
-import kr.teamnine.voice.tab2.CategoryList;
-import kr.teamnine.voice.tab2.ListMain;
-import kr.teamnine.voice.tab2.VoiceListView;
 import android.app.ActivityGroup;
-import android.app.TabActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -26,12 +22,13 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TabHost;
 
 public class VoicePlayer extends ActivityGroup implements OnClickListener{
@@ -48,7 +45,8 @@ public class VoicePlayer extends ActivityGroup implements OnClickListener{
     public String fileName = "";
     public String mp3Path = "";
     public ListView recentList;
-
+    private LinearLayout dynamicLayout;
+    
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,21 +76,35 @@ public class VoicePlayer extends ActivityGroup implements OnClickListener{
     protected void onResume () {
     	
     	super.onResume();
-        DBHandler dbhandler = DBHandler.open(this);
+        
     	
     	//환경설정 세팅
     	setGlobalSetting();
     	
         // recent voice
-        //recentList = (ListView) findViewById(R.id.horizontalScrollView1);
-        
+    	DBHandler dbhandler = DBHandler.open(this);
     	Cursor cursor = dbhandler.selectRecntVoice();
-        startManagingCursor(cursor);
         
-        String[] FROM = new String[]{"_id", "voiceData", "fileName"};
-        int[] TO = new int[]{R.id.code, R.id.recentBtn};
-        cursorAdapter = new SimpleCursorAdapter(this, R.layout.tab1_recent_list, cursor, FROM, TO );
-        //recentList.setAdapter(cursorAdapter);
+        dynamicLayout = (LinearLayout)findViewById(R.id.recentList);
+        
+//        while(cursor.moveToNext()){
+//        	cursor.moveToFirst();
+////        	Button recentBtn = new Button(this);
+////        	recentBtn.setId(cursor.getColumnIndex("_id"));
+////        	recentBtn.setText(cursor.getString(cursor.getColumnIndex("voiceData")));
+////        	
+////        	recentBtn.setOnClickListener(this);
+////        	dynamicLayout.addView(recentBtn, new LayoutParams(LayoutParams.FILL_PARENT,LayoutParams.WRAP_CONTENT ));
+//        	
+//        }
+//        cursor.close();
+        
+//        String[] FROM = new String[]{"_id", "voiceData", "fileName"};
+//        int[] TO = new int[]{R.id.recentCode, R.id.recentBtn};
+//        cursorAdapter = new SimpleCursorAdapter(this, R.layout.tab1_recent_list, cursor, FROM, TO );
+//        recentList.setAdapter(cursorAdapter);
+//        System.out.println(recentList.getCount());
+        
 
         
         
@@ -162,7 +174,8 @@ public class VoicePlayer extends ActivityGroup implements OnClickListener{
         // auto Play
         if(autoPlay && onStart)playMp3();        
         
-            	
+            
+        dbhandler.close();
     	
     }
     
@@ -242,7 +255,9 @@ public class VoicePlayer extends ActivityGroup implements OnClickListener{
 				public void onCompletion(MediaPlayer arg0) {
 					// TODO Auto-generated method stub
 					if(vibration)onVibrate();
-			        VoiceApplication ACN = (VoiceApplication)getApplicationContext();        		
+					
+			        VoiceApplication ACN = (VoiceApplication)getApplicationContext();
+			        System.out.println(ACN.getOnStart());
 			        ACN.setOnStart(false);					
 				}
 			});

@@ -37,7 +37,7 @@ public class DBHandler {
     	values.put("fileName"	, fileName);
     	values.put("cateCode"	, cateCode);
     	values.put("count"		, 0);
-    	values.put("data"		, 0);
+    	values.put("date"		, 0);
     	
     	return db.insert("tVoiceData", null, values);
     	
@@ -94,7 +94,7 @@ public class DBHandler {
     // recent voice
     public Cursor selectRecntVoice(){
     	Cursor cursor = db.rawQuery(" SELECT A.voiceCode as _id , A.voiceData,  A.fileName " +
-    								" FROM tVoiceData as A join tHistoryData as B on A.voiceCode = B.voiceCode " +
+    								" FROM tVoiceData as A left join tHistoryData as B on A.voiceCode = B.voiceCode " +
     								" order by B.date desc limit 0,10 ", null);
     	return cursor;
     }
