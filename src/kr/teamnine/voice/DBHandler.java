@@ -186,8 +186,11 @@ public class DBHandler {
 
         return db.update("tNoteData", values, "noteCode" + "=" + code, null) > 0;
     }
-    
 
+    public boolean deleteNoteData(long rowId) {
+        return db.delete("tNoteData", "noteCode" + "=" + rowId, null) > 0;
+    }
+    
 //    public long insertNoteData(String note_data, String date) {
 //        ContentValues values = new ContentValues();
 //        values.put("car_name", note_data);        

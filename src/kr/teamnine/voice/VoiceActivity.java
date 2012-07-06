@@ -98,7 +98,7 @@ public class VoiceActivity extends TabActivity {
         File folder = new File("/data/data/kr.teamnine.voice/databases/");
         
         
-        if(!f.exists()){
+        if(f.exists()){
         	Log.e(TAG, "exists!!!");
         	
         }else{
