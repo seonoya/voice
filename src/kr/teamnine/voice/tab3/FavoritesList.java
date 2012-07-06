@@ -26,11 +26,20 @@ public class FavoritesList extends ActivityGroup  {
     	
         super.onCreate(savedInstanceState);
 		setContentView(R.layout.tab3);
-
-
-		
         voiceList = (ListView) findViewById(R.id.favoritesListView);
 
+ 
+    }
+    
+    @Override
+    protected void onResume () {
+    	
+    	super.onResume();
+    	init();
+    }
+    
+    public void init(){
+    	
         
         // data get (category list)
         DBHandler dbhandler = DBHandler.open(this);
@@ -42,7 +51,7 @@ public class FavoritesList extends ActivityGroup  {
         cursorAdapter = new SimpleCursorAdapter(this, R.layout.tab2row, cursor, FROM, TO );
         voiceList.setAdapter(cursorAdapter);
         //Log.e("favoi cnt" , voiceList.getCount());
-        System.out.println("voie count"+voiceList.getCount());
+        System.out.println("voie count"+cursor.getCount());
         dbhandler.close();
         
         
@@ -70,6 +79,7 @@ public class FavoritesList extends ActivityGroup  {
 			
 		});
 
+    	
     }
 
 

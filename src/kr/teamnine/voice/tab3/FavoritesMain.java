@@ -24,6 +24,7 @@ public class FavoritesMain extends ActivityGroup {
 		history = new ArrayList<View>();
 		favoritesGroup = this;
         
+		System.out.println("요긴 어디: 즐겨찾기 메인");
 		Intent intent = new Intent(FavoritesMain.this, FavoritesList.class);
 		View view = getLocalActivityManager().startActivity("FavoritesList", intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
 		replaceView(view);		

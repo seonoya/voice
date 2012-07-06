@@ -54,6 +54,14 @@ public class DBHandler {
     	
     }    
     
+    // favorites delete
+    public void deleteFavorites(int voiceCode){
+    	
+    	db.execSQL("delete from tFavorites where voiceCode = " + voiceCode + "");
+    	
+    }    
+    
+    
     // category insert
     public long insertCategory(int cateName){
     	
@@ -78,18 +86,7 @@ public class DBHandler {
     
         
     
-    
-    
 
-    public Cursor select(int id) throws SQLException {        
-        Cursor cursor = db.query(true, "cars", 
-                                new String[] {"_id", "car_name"},
-                                "_id" + "=" + id, 
-                                null, null, null, null, null);        
-        if (cursor != null) { cursor.moveToFirst(); }        
-
-        return cursor;
-    }
 
     // recent voice
     public Cursor selectRecntVoice(){
@@ -104,7 +101,8 @@ public class DBHandler {
     // voice Select
     public Cursor selectFileName(int voiceCode){
     	String param[] = {""+voiceCode+""};
-    	Cursor cursor = db.rawQuery("SELECT voiceCode as _id , voiceData, fileName FROM tVoiceData where voiceCode = ? LIMIT 0,1 ", param);
+    	Cursor cursor = db.rawQuery("SELECT voiceCode as _id , voiceData, fileName, (select count(*) from tFavorites where voiceCode = A.voiceCode) as favo " +
+    			"  FROM tVoiceData as A where voiceCode = ? LIMIT 0,1 ", param);
     	System.out.println(param[0]);
     	return cursor;
     }
@@ -144,6 +142,7 @@ public class DBHandler {
         
         if (cursor != null) { cursor.moveToFirst(); }
         
+        System.out.println(cursor.getCount());
         return cursor;
     }
 
