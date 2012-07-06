@@ -70,11 +70,6 @@ public class VoicePlayer extends ActivityGroup implements OnClickListener{
 		btnSearchVoice.setOnClickListener(this);
 		btnInsertNotePad.setOnClickListener(this);
 		btnViewManaul.setOnClickListener(this);
-		
-		
-
-		
-
  
         
     } 
@@ -106,6 +101,8 @@ public class VoicePlayer extends ActivityGroup implements OnClickListener{
         VoiceApplication ACN = (VoiceApplication)getApplicationContext();        		
 		int voiceCode = ACN.getVoiceCode();
         String voiceTxt = ACN.getVoicevoiceTxt();
+        boolean onStart = ACN.getOnStart();
+        
         
         Log.e("Ω√¿€",voiceCode +"//"+ voiceTxt);
 
@@ -163,7 +160,7 @@ public class VoicePlayer extends ActivityGroup implements OnClickListener{
         File temp = new File(mp3Path);
         Log.e(TAG, temp.getPath() + temp.exists());
         // auto Play
-        if(autoPlay)playMp3();        
+        if(autoPlay && onStart)playMp3();        
         
             	
     	
@@ -245,6 +242,8 @@ public class VoicePlayer extends ActivityGroup implements OnClickListener{
 				public void onCompletion(MediaPlayer arg0) {
 					// TODO Auto-generated method stub
 					if(vibration)onVibrate();
+			        VoiceApplication ACN = (VoiceApplication)getApplicationContext();        		
+			        ACN.setOnStart(false);					
 				}
 			});
     		

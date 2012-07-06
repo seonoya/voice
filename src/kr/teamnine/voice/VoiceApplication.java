@@ -8,6 +8,7 @@ public class VoiceApplication extends Application{
 	private String voiceTxt;
 	private String voicePath;
 	private String voiceFileName;
+	private boolean onStart;
 	
 	
 //	@Override
@@ -55,6 +56,15 @@ public class VoiceApplication extends Application{
 	public String getVoiceFileName(){
 		return this.voiceFileName;
 	}	
+	
+	public void setOnStart(boolean onStart){
+		this.onStart = onStart;
+	}
+
+	public boolean getOnStart(){
+		return this.onStart;
+	}	
+	
 	
 	
 }

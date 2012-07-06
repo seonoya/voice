@@ -57,6 +57,7 @@ public class VoiceListView extends Activity {
         	    
         	    ACN.setVoiceCode(Integer.parseInt(((TextView)arg1.findViewById(R.id.code)).getText().toString()));
         		ACN.setVoiceTxt( ((TextView)arg1.findViewById(R.id.list)).getText().toString() );
+        		ACN.setOnStart(true);
         		
         		ListMain.listGroup.moveVoicePlayer();
 
