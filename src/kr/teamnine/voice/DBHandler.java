@@ -158,4 +158,35 @@ public class DBHandler {
         return cursor;
     }
     
+
+    // 노트관련 쿼리문
+    // 노트 데이터 전체 조회
+    public Cursor selectNoteList() throws SQLException {
+        Cursor cursor = db.rawQuery("SELECT noteCode as _id, IFNULL(noteData,'') as noteData, IFNULL(date,'') as date FROM tNoteData  ORDER BY date DESC ",null);
+        
+        if (cursor != null) { cursor.moveToFirst(); }
+        
+        return cursor;
+    }
+    
+
+//    public long insertNoteData(String note_data, String date) {
+//        ContentValues values = new ContentValues();
+//        values.put("car_name", note_data);        
+//        values.put("car_name", date);        
+//
+//        return db.insert("cars", null, values);
+//    } 
+    
+
+
+// // 노트데이터 등록
+//    #define DF_QUERY_INSERT_NOTE_DATA     "INSERT INTO tNoteData (noteData, date) VALUES (?,?)" 
+// // 노트데이터 변경
+// #define DF_QUERY_UPDATE_NOTE_DATA     "UPDATE tNoteData SET noteData = ?, date =? WHERE noteCode = ?"
+// // 노트데이터 삭제
+// #define DF_QUERY_DELETE_NOTE_DATA     "DELETE FROM tNoteData WHERE noteCode = ?"
+    
+    
+    
 }

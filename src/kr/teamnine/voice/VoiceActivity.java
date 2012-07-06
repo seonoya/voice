@@ -24,6 +24,11 @@ public class VoiceActivity extends TabActivity {
 	public final String TAG = "Ryu";
     @Override
     public void onCreate(Bundle savedInstanceState) {
+    	
+    	// Intro Image
+		startActivity(new Intent(this, AppIntroActivity.class));
+		overridePendingTransition(0, 0);
+    	
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         
@@ -34,8 +39,13 @@ public class VoiceActivity extends TabActivity {
         mp3Copy();
         
         
+        // TabBar Init
+        initMainView();
         
-        
+    }
+    
+    
+	private void initMainView() {
         Resources res = getResources(); // Resource object to get Drawables
         TabHost tabHost = getTabHost();  // The activity TabHost
         TabHost.TabSpec spec;  // Resusable TabSpec for each tab
@@ -79,9 +89,8 @@ public class VoiceActivity extends TabActivity {
         tabHost.addTab(spec);
 
         tabHost.setCurrentTab(0);
-
-        
-    }
+	}
+    
     
     public void copyDB(){
         // dbüũ
