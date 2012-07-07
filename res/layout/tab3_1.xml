@@ -11,7 +11,7 @@
         android:background="@drawable/img_title_bar"
         android:orientation="horizontal" >
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"/>        
         
@@ -19,27 +19,31 @@
             android:id="@+id/goFavorites"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:layout_weight="4"
-            android:layout_marginLeft="30dp"
+            android:layout_weight="1"
             android:background="@drawable/bar_button_tab1" />        
         <Button
             android:id="@+id/goHistory"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:layout_weight="4"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/bar_button_tab2a"  />
+        <Button
+            android:id="@+id/deleteHistory"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="30dp"
-            android:background="@drawable/bar_button_tab2a"  />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"/>        
+            android:background="@drawable/bar_button_edit2"  />        
+                
         
     </LinearLayout>
 
 	<ListView
 	    android:id="@+id/favoritesListView"
 	    android:layout_width="fill_parent"
-	    android:layout_height="fill_parent" />
+	    android:layout_height="fill_parent"
+	    android:cacheColorHint="#00000000" />
     
 </LinearLayout>

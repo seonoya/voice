@@ -19,7 +19,7 @@ import android.widget.TextView;
 public class VoiceListView extends Activity {
 	/** Called when the activity is first created. */
     private SimpleCursorAdapter cursorAdapter;
-
+    private Cursor tcursor;
     ListView voiceList;
 
 
@@ -50,16 +50,16 @@ public class VoiceListView extends Activity {
         
         //request Data
 		VoiceApplication ACN = (VoiceApplication)getApplicationContext();        		
-	    int cateCode = 0;//ACN.getCateCode();
+	    int cateCode = ACN.getCateCode();
         
         // data get (category list)
         System.out.println("category code" + cateCode);
         DBHandler dbhandler = DBHandler.open(this);
     	Cursor cursor = dbhandler.selectVoiceList(cateCode);
         startManagingCursor(cursor);
-        
-        String[] FROM = new String[]{"_id","voiceData"};
-        int[] TO = new int[]{R.id.code, R.id.list};
+        tcursor = cursor;
+        String[] FROM = new String[]{"voiceData"};
+        int[] TO = new int[]{ R.id.list};
         cursorAdapter = new SimpleCursorAdapter(this, R.layout.tab2row, cursor, FROM, TO );
         voiceList.setAdapter(cursorAdapter);
         dbhandler.close();
@@ -69,8 +69,7 @@ public class VoiceListView extends Activity {
         	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3){
         		//View parentView = (View) arg0[arg3].getParent();
         	    VoiceApplication ACN = (VoiceApplication)getApplicationContext();        		
-        	    
-        	    ACN.setVoiceCode(Integer.parseInt(((TextView)arg1.findViewById(R.id.code)).getText().toString()));
+        	    ACN.setVoiceCode(Integer.parseInt(tcursor.getString(tcursor.getColumnIndexOrThrow("_id"))));
         		ACN.setVoiceTxt( ((TextView)arg1.findViewById(R.id.list)).getText().toString() );
         		ACN.setOnStart(true);
         		Log.e("", ACN.getVoiceCode() + "//" + ACN.getVoicevoiceTxt());

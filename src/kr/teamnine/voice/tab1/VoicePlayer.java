@@ -251,6 +251,7 @@ public class VoicePlayer extends ActivityGroup implements OnClickListener{
     }
    
     public void checkFavo(int cnt){
+    	System.out.println("Áñ°ÜÃ£±â ¿©"+cnt);
     	if(cnt > 0){
         	findViewById(R.id.insertFavoites).setVisibility(View.INVISIBLE);
         	findViewById(R.id.deleteFavoites).setVisibility(View.VISIBLE);
@@ -334,6 +335,14 @@ public class VoicePlayer extends ActivityGroup implements OnClickListener{
     }
     
     
+    //add history
+    public void addHistory(){
+    	DBHandler dbhandler = DBHandler.open(this);
+        dbhandler.insertHistory(voiceCode, voiceTxt, "20120707");
+        dbhandler.close();
+    	
+    }
+    
     // get mp3 path
     public String getMp3Path(int voiceCode){
     	String filePath = "";
@@ -363,6 +372,7 @@ public class VoicePlayer extends ActivityGroup implements OnClickListener{
 					
 			        VoiceApplication ACN = (VoiceApplication)getApplicationContext();
 			        System.out.println(ACN.getOnStart());
+			        addHistory();
 			        ACN.setOnStart(false);					
 				}
 			});

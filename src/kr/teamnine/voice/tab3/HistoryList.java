@@ -4,10 +4,12 @@ import kr.teamnine.voice.DBHandler;
 import kr.teamnine.voice.R;
 import kr.teamnine.voice.VoiceApplication;
 import android.app.Activity;
+import android.app.ActivityGroup;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
@@ -16,9 +18,10 @@ import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 
 
-public class HistoryList extends Activity {
+public class HistoryList extends ActivityGroup implements OnClickListener {
 	/** Called when the activity is first created. */
     private SimpleCursorAdapter cursorAdapter;
+    private Cursor tcursor;
     ListView voiceList;
 
 
@@ -29,6 +32,9 @@ public class HistoryList extends Activity {
         super.onCreate(savedInstanceState);
 		setContentView(R.layout.tab3_1);
 
+		
+		Button btnDelHistory			= (Button)findViewById(R.id.deleteHistory);
+		btnDelHistory.setOnClickListener(this);
 		
 		System.out.println("요긴 히스토리리스ㅡㅌ");
 		Button btnGoFavorites = (Button)findViewById(R.id.goFavorites);
@@ -47,10 +53,11 @@ public class HistoryList extends Activity {
     	Cursor cursor = dbhandler.selectHistoryList();
         startManagingCursor(cursor);
         
-        String[] FROM = new String[]{"_id","voiceData"};
-        int[] TO = new int[]{R.id.code, R.id.list};
+        String[] FROM = new String[]{"voiceData"};
+        int[] TO = new int[]{ R.id.list};
         cursorAdapter = new SimpleCursorAdapter(this, R.layout.tab2row, cursor, FROM, TO );
         voiceList.setAdapter(cursorAdapter);
+        tcursor = cursor;
         dbhandler.close();
         
         
@@ -58,8 +65,7 @@ public class HistoryList extends Activity {
         	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3){
         		
         	    VoiceApplication ACN = (VoiceApplication)getApplicationContext();        		
-        	    
-        	    ACN.setVoiceCode(Integer.parseInt(((TextView)arg1.findViewById(R.id.code)).getText().toString()));
+        	    ACN.setVoiceCode(Integer.parseInt(tcursor.getString(tcursor.getColumnIndexOrThrow("_id"))));
         		ACN.setVoiceTxt( ((TextView)arg1.findViewById(R.id.list)).getText().toString() );
         		ACN.setOnStart(true);
         		Log.e("", ACN.getVoiceCode() + "//" + ACN.getVoicevoiceTxt());
@@ -83,5 +89,11 @@ public class HistoryList extends Activity {
     	parent.onBackPressed();
     	
     }
+
+	public void onClick(View v) {
+		
+		// TODO Auto-generated method stub
+		
+	}
     
 }

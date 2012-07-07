@@ -120,7 +120,7 @@ public class DBHandler {
     // Voice List
     public Cursor selectVoiceList(int cateCode) throws SQLException {
     	Cursor cursor;
-    	if(cateCode == 0){
+    	if(cateCode == 10){
     		cursor = db.rawQuery("SELECT voiceCode as _id, voiceData from tVoiceData ",null);
     	}else{
     		String param[] = {""+cateCode+""};
